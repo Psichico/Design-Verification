@@ -40,22 +40,73 @@ itm mx;
       finish_item(mx);
     endtask: dopushcomplete
 
+
 // A sequence body template. put tests there
    task body;
      mx=itm::type_id::create("seq_item");
      doreset(3);
-    `uvm_info("doreset","seq_item",UVM_MEDIUM);
      donop(3);
-     `uvm_info("donop","seq_item",UVM_MEDIUM);
+
 // Put your stuff here...
-    dopush;
-    #5ns;
-    `uvm_info("DO PUSH","MY TASK",UVM_MEDIUM);
-    //`uvm_info("MY",$psprintf("....",mx),UVM_MEDIUM);
-    dopushcomplete();
-    #1ns;
-    
-    `uvm_do (mx);
-//
+
+
+//	start_item(mx);
+/*	repeat(300)
+	begin
+		dopush();
+		mx.opcode=E_push;
+		assert(mx.randomize());
+		//`uvm_send(mx);
+	end
+	mx.opcode=E_pushcomplete;
+	assert(mx.randomize());
+	//`uvm_send(mx);
+	dopushcomplete();
+//       finish_item(mx);
+*/	
+	//repeat(1000)
+///	`uvm_do_with(mx.opcode = E_push, {E_push != 0; E_pushcomplete == 0;});			
+	//`uvm_do(mx);
+
+	//start_item(mx);
+/*
+	repeat(10000)
+	begin
+		start_item(mx);
+		mx.opcode=E_push;
+		assert(mx.randomize());		
+		#10ns;
+		finish_item(mx);
+		assert(mx.randomize());
+		#1ns;
+		start_item(mx);
+		mx.opcode=E_nop;
+		assert(mx.randomize());
+		#10ns;
+		finish_item(mx);
+		//mx.opcode=E_pushcomplete;
+		assert(mx.randomize());
+		#10ns;
+	end
+	//finish_item(mx);
+*/
+	repeat(50)
+	begin
+		start_item(mx);
+		mx.opcode=E_reset;
+		assert(mx.randomize());
+		#2ns;		
+		//mx.opcode=E_push;
+		assert(mx.randomize());
+		
+		#100ns		
+		mx.opcode=E_pushcomplete;
+		assert(mx.randomize());
+		//mx.opcode=E_nop;
+		//assert(mx.randomize());
+		//mx.opcode=E_reset;
+		//assert(mx.randomize());		
+		finish_item(mx);
+	end
    endtask : body
 endclass : s0

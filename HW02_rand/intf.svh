@@ -1,6 +1,7 @@
 //
 // This is the DUT interface
 //
+
 interface intf();
 reg clk,rst;
 reg [31:0] din;
