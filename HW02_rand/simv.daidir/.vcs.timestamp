@@ -308,17 +308,16 @@
 -timescale=1ns/1ns
 /apps/synopsys/VCSMX_NEW/linux/bin/vcs1
 /home/morris/uvm-1.2/src/uvm.sv
-dut0.svp
+dut3.svp
 top.sv
-83
+64
 sysc_uni_pwd=/home/014521416/Psichico/EE273/HW02_rand
-cdk_dir=/apps/cadence/IC50/tools/dfII/local
 XRDP_SOCKET_PATH=/tmp/.xrdp
 XRDP_SESSION=1
 XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
 XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
 XMODIFIERS=@im=ibus
-XDG_SESSION_ID=3517
+XDG_SESSION_ID=3814
 XDG_RUNTIME_DIR=/run/user/1222971771
 XDG_MENU_PREFIX=gnome-
 XDG_DATA_DIRS=/home/014521416/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
@@ -334,20 +333,13 @@ VCS_ARCH=linux
 VCS_AMD_PURE32=1
 VCSMX_HOME=/apps/synopsys/VCSMX_NEW
 UVM_HOME=/home/morris/uvm-1.2
-USE_NCSU_CDK=
 UNAME=/bin/uname
 TOOL_HOME=/apps/synopsys/VCSMX_NEW/linux
 TK_LIBRARY=/apps/synopsys/VCSMX_NEW/etc/auxx/tcllib/tk8.4/library
-SYNOPSYS_SIM=/apps/synopsys/2000.12
-SYNOPSYS=/apps/synopsys
-STROOT=/apps/synopsys/TCAD
-STRELEASE=current
-STDB=/home/014521416/sentaurus
 SSH_AUTH_SOCK=/run/user/1222971771/keyring/ssh
-SSH_AGENT_PID=9343
+SSH_AGENT_PID=19462
 SNPSLMS_LICENSE_FILE=27000@cadence3.engr.sjsu.edu:/apps/synopsys/license/current-license-key
-SKIP_CDS_DIALOG=
-SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/9173,unix/unix:/tmp/.ICE-unix/9173
+SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/19292,unix/unix:/tmp/.ICE-unix/19292
 SCRNAME=vcs
 SCRIPT_NAME=vcs
 QT_PLUGIN_PATH=/usr/lib64/kde4/plugins:/usr/lib/kde4/plugins
@@ -357,7 +349,6 @@ QTLIB=/usr/lib64/qt-3.3/lib
 QTINC=/usr/lib64/qt-3.3/include
 QTDIR=/usr/lib64/qt-3.3
 PULSE_SCRIPT=/etc/xrdp/pulse/default.pa
-PRIMETIME_ROOT=/apps/synopsys/pt2000.11
 OVA_UUM=0
 OSTYPE=linux
 MODULESHOME=/usr/share/Modules
@@ -368,35 +359,25 @@ LESSOPEN=||/usr/bin/lesspipe.sh %s
 LC_ALL=C
 KRB5CCNAME=KEYRING:persistent:1222971771
 KDEDIRS=/usr
-IUS=/apps/cadence/INCISIVE152
-ISEROOT=/apps/synopsys/TCAD/
 IMSETTINGS_MODULE=none
 IMSETTINGS_INTEGRATE_DESKTOP=yes
-IC=/apps/cadence/IC50
-HSP_HOME=/apps/synopsys/HSPICE/hspice
 HOSTTYPE=x86_64-linux
 HISTCONTROL=ignoredups
 GROUP=domain users
 GNOME_TERMINAL_SERVICE=:1.98
-GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/027eed92_60de_4b0f_8624_eedfab25a6e7
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/5911e904_ce50_49ad_9258_2464442444af
 GNOME_SHELL_SESSION_MODE=classic
 GNOME_DESKTOP_SESSION_ID=this-is-deprecated
 DBUS_STARTER_BUS_TYPE=session
-DBUS_STARTER_ADDRESS=unix:abstract=/tmp/dbus-yTbLKyU00n,guid=b39075092bbabda869e0c3f25e40875f
-DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-yTbLKyU00n,guid=b39075092bbabda869e0c3f25e40875f
+DBUS_STARTER_ADDRESS=unix:abstract=/tmp/dbus-28j5fGQAud,guid=ed0aa7cf28f9810284b495115e40f5d5
+DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-28j5fGQAud,guid=ed0aa7cf28f9810284b495115e40f5d5
 COLORTERM=truecolor
-CLS_CSD_COMPATIBILITY_LOCKING=NO
-CLS_CDSD_COMPATIBILITY_LOCKING=NO
-CDS_VHDL=/apps/cadence/INCISIVE152/tools/leapfrog
-CDS_SITE=/apps/cadence/IC50/tools/dfII/local
-CDS_Netlisting_Mode=Analog
 CDS_LIC_FILE=5280@COE-E239-EELIC.sjsuad.sjsu.edu:/apps/cadence/license-current
 CDSLMD_LICENSE_FILE=5280@COE-E239-EELIC.sjsuad.sjsu.edu:/apps/cadence/license-current
-CDS=/apps/cadence
 ARCH=linux
 0
 149
-1581287546 s0.svh
+1581326725 s0.svh
 1581287546 defs.svh
 1581287546 trand.svhp
 1581287546 intf.svh
@@ -542,7 +523,7 @@ ARCH=linux
 1402647219 /home/morris/uvm-1.2/src/macros/uvm_version_defines.svh
 1402647219 /home/morris/uvm-1.2/src/uvm_macros.svh
 1402647219 /home/morris/uvm-1.2/src/uvm_pkg.sv
-1581287546 dut0.svp
+1581287546 dut3.svp
 1581287546 top.sv
 1402647219 /home/morris/uvm-1.2/src/uvm.sv
 5
@@ -551,4 +532,4 @@ ARCH=linux
 1410372690 /apps/synopsys/VCSMX_NEW/linux/lib/libvirsim.so
 1410372633 /apps/synopsys/VCSMX_NEW/linux/lib/librterrorinf.so
 1410372654 /apps/synopsys/VCSMX_NEW/linux/lib/libsnpsmalloc.so
-1581287615 simv.daidir
+1581326803 simv.daidir
