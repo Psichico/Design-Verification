@@ -90,7 +90,7 @@ itm mx;
 	end
 	//finish_item(mx);
 */
-	repeat(50)
+/*	repeat(10)
 	begin
 		start_item(mx);
 		mx.opcode=E_reset;
@@ -102,11 +102,31 @@ itm mx;
 		#100ns		
 		mx.opcode=E_pushcomplete;
 		assert(mx.randomize());
-		//mx.opcode=E_nop;
-		//assert(mx.randomize());
-		//mx.opcode=E_reset;
-		//assert(mx.randomize());		
-		finish_item(mx);
-	end
+*/
+		repeat(500)
+		begin
+			start_item(mx);	
+			mx.opcode=E_pushcomplete;
+			assert(mx.randomize());
+			finish_item(mx);
+
+			start_item(mx);	
+			//mx.opcode=E_push;
+			assert(mx.randomize());
+			#1ns;
+				
+			//mx.opcode=E_nop;
+			//assert(mx.randomize());
+			//mx.opcode=E_reset;
+			//assert(mx.randomize());
+			//mx.opcode=E_pushcomplete;
+			//assert(mx.randomize());
+			finish_item(mx);
+
+			
+		end		
+
+//		finish_item(mx);
+//	end
    endtask : body
 endclass : s0

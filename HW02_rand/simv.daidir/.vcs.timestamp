@@ -308,7 +308,7 @@
 -timescale=1ns/1ns
 /apps/synopsys/VCSMX_NEW/linux/bin/vcs1
 /home/morris/uvm-1.2/src/uvm.sv
-dut2.svp
+dut1.svp
 top.sv
 64
 sysc_uni_pwd=/home/014521416/Psichico/EE273/HW02_rand
@@ -377,7 +377,7 @@ CDSLMD_LICENSE_FILE=5280@COE-E239-EELIC.sjsuad.sjsu.edu:/apps/cadence/license-cu
 ARCH=linux
 0
 149
-1581377097 s0.svh
+1581378685 s0.svh
 1581287546 defs.svh
 1581287546 trand.svhp
 1581367202 intf.svh
@@ -523,7 +523,7 @@ ARCH=linux
 1402647219 /home/morris/uvm-1.2/src/macros/uvm_version_defines.svh
 1402647219 /home/morris/uvm-1.2/src/uvm_macros.svh
 1402647219 /home/morris/uvm-1.2/src/uvm_pkg.sv
-1581287546 dut2.svp
+1581287546 dut1.svp
 1581287546 top.sv
 1402647219 /home/morris/uvm-1.2/src/uvm.sv
 5
@@ -532,4 +532,4 @@ ARCH=linux
 1410372690 /apps/synopsys/VCSMX_NEW/linux/lib/libvirsim.so
 1410372633 /apps/synopsys/VCSMX_NEW/linux/lib/librterrorinf.so
 1410372654 /apps/synopsys/VCSMX_NEW/linux/lib/libsnpsmalloc.so
-1581377109 simv.daidir
+1581378732 simv.daidir
