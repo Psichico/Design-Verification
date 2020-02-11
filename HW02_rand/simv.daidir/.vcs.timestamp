@@ -314,10 +314,10 @@ top.sv
 sysc_uni_pwd=/home/014521416/Psichico/EE273/HW02_rand
 XRDP_SOCKET_PATH=/tmp/.xrdp
 XRDP_SESSION=1
-XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
-XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
+XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_12
+XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_12
 XMODIFIERS=@im=ibus
-XDG_SESSION_ID=2
+XDG_SESSION_ID=324
 XDG_RUNTIME_DIR=/run/user/1222971771
 XDG_MENU_PREFIX=gnome-
 XDG_DATA_DIRS=/home/014521416/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
@@ -337,9 +337,9 @@ UNAME=/bin/uname
 TOOL_HOME=/apps/synopsys/VCSMX_NEW/linux
 TK_LIBRARY=/apps/synopsys/VCSMX_NEW/etc/auxx/tcllib/tk8.4/library
 SSH_AUTH_SOCK=/run/user/1222971771/keyring/ssh
-SSH_AGENT_PID=2800
+SSH_AGENT_PID=25330
 SNPSLMS_LICENSE_FILE=27000@cadence3.engr.sjsu.edu:/apps/synopsys/license/current-license-key
-SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/2624,unix/unix:/tmp/.ICE-unix/2624
+SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/25160,unix/unix:/tmp/.ICE-unix/25160
 SCRNAME=vcs
 SCRIPT_NAME=vcs
 QT_PLUGIN_PATH=/usr/lib64/kde4/plugins:/usr/lib/kde4/plugins
@@ -364,13 +364,13 @@ IMSETTINGS_INTEGRATE_DESKTOP=yes
 HOSTTYPE=x86_64-linux
 HISTCONTROL=ignoredups
 GROUP=domain users
-GNOME_TERMINAL_SERVICE=:1.100
-GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/d881a8b4_52b4_454d_ab14_48df59b76c14
+GNOME_TERMINAL_SERVICE=:1.99
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/240de299_c8c9_4c69_b257_b1310b720183
 GNOME_SHELL_SESSION_MODE=classic
 GNOME_DESKTOP_SESSION_ID=this-is-deprecated
 DBUS_STARTER_BUS_TYPE=session
-DBUS_STARTER_ADDRESS=unix:abstract=/tmp/dbus-qpIZfCDIOM,guid=d758ebf7157e890b7159e7485e419eb8
-DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-qpIZfCDIOM,guid=d758ebf7157e890b7159e7485e419eb8
+DBUS_STARTER_ADDRESS=unix:abstract=/tmp/dbus-E0FOEHeyEN,guid=cc70b97df1b0d144289152f15e421207
+DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-E0FOEHeyEN,guid=cc70b97df1b0d144289152f15e421207
 COLORTERM=truecolor
 CDS_LIC_FILE=5280@COE-E239-EELIC.sjsuad.sjsu.edu:/apps/cadence/license-current
 CDSLMD_LICENSE_FILE=5280@COE-E239-EELIC.sjsuad.sjsu.edu:/apps/cadence/license-current
@@ -532,4 +532,4 @@ ARCH=linux
 1410372690 /apps/synopsys/VCSMX_NEW/linux/lib/libvirsim.so
 1410372633 /apps/synopsys/VCSMX_NEW/linux/lib/librterrorinf.so
 1410372654 /apps/synopsys/VCSMX_NEW/linux/lib/libsnpsmalloc.so
-1581386466 simv.daidir
+1581388994 simv.daidir
