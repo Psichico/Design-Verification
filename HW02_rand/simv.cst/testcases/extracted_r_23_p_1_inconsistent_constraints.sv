@@ -1,8 +1,9 @@
 class c_23_1;
+    integer mx_opcode = 0; // ( mx.opcode = trand::icmd::E_reset ) 
 
-    constraint WITH_CONSTRAINT_this    // (constraint_mode = ON) (s0.svh:83)
+    constraint WITH_CONSTRAINT_this    // (constraint_mode = ON) (s0.svh:40)
     {
-       (3 /* trand::icmd::E_pushcomplete */ == 0);
+       (mx_opcode == 3 /* trand::icmd::E_pushcomplete */);
     }
 endclass
 

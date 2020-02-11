@@ -34,90 +34,21 @@ itm mx;
 
 // Put your stuff here...
 
-//	start_item(mx);
-/*	repeat(300)
-	begin
-		dopush();
-		mx.opcode=E_push;
-		assert(mx.randomize());
-		//`uvm_send(mx);
-	end
-	mx.opcode=E_pushcomplete;
-	assert(mx.randomize());
-	//`uvm_send(mx);
-	dopushcomplete();
-//       finish_item(mx);
-*/	
-	//repeat(1000)
-///	`uvm_do_with(mx.opcode = E_push, {E_push != 0; E_pushcomplete == 0;});			
-	//`uvm_do(mx);
-
-	//start_item(mx);
-/*
-	repeat(10000)
-	begin
-		start_item(mx);
-		mx.opcode=E_push;
-		assert(mx.randomize());		
-		#10ns;
-		finish_item(mx);
-		assert(mx.randomize());
-		#1ns;
-		start_item(mx);
-		mx.opcode=E_nop;
-		assert(mx.randomize());
-		#10ns;
-		finish_item(mx);
-		//mx.opcode=E_pushcomplete;
-		assert(mx.randomize());
-		#10ns;
-	end
-	//finish_item(mx);
-*/
 	repeat(3)
 	begin
-		start_item(mx);
 		mx.opcode=E_reset;
-		assert(mx.randomize());
-		//#2ns;		
-		//mx.opcode=E_push;
-		assert(mx.randomize());
-		
-		//#100ns		
+		`uvm_rand_send(mx)
 		mx.opcode=E_pushcomplete;
-		assert(mx.randomize());
+		`uvm_rand_send(mx)
+		mx.opcode=E_push;
+		`uvm_rand_send(mx)
+		mx.opcode=E_reset;
+		`uvm_rand_send(mx)
+		mx.opcode=E_pushcomplete;
+		`uvm_rand_send(mx)
 
-		finish_item(mx);
-
-		repeat(1)
-		begin
-			
-			start_item(mx);	
-			mx.opcode=E_push;
-			assert(mx.randomize());
-			finish_item(mx);
-
-			//start_item(mx);	
-			//mx.opcode=E_nop;
-			//assert(mx.randomize());
-			//#1ns;
-			//finish_item(mx);
-			
-			start_item(mx);	
-			mx.opcode=E_reset;
-			assert(mx.randomize());
-			#1ns;
-			finish_item(mx);
-
-			start_item(mx);	
-			mx.opcode=E_pushcomplete;
-			assert(mx.randomize());
-			#1ns;
-			finish_item(mx);
-			
-		end		
-
-		
 	end
+
    endtask : body
 endclass : s0
+
