@@ -26,21 +26,6 @@ itm mx;
      end
    endtask : donop
    
-   task dopush();
-     start_item(mx);
-     mx.opcode=E_push;
-     mx.randomize();
-     finish_item(mx);
-    endtask : dopush
-
-    task dopushcomplete();
-      start_item(mx);
-      mx.opcode=E_pushcomplete;
-      mx.randomize();
-      finish_item(mx);
-    endtask: dopushcomplete
-
-
 // A sequence body template. put tests there
    task body;
      mx=itm::type_id::create("seq_item");
@@ -48,7 +33,6 @@ itm mx;
      donop(3);
 
 // Put your stuff here...
-
 
 //	start_item(mx);
 /*	repeat(300)
@@ -90,20 +74,22 @@ itm mx;
 	end
 	//finish_item(mx);
 */
-/*	repeat(10)
+	repeat(3)
 	begin
 		start_item(mx);
 		mx.opcode=E_reset;
 		assert(mx.randomize());
-		#2ns;		
+		//#2ns;		
 		//mx.opcode=E_push;
 		assert(mx.randomize());
 		
-		#100ns		
+		//#100ns		
 		mx.opcode=E_pushcomplete;
 		assert(mx.randomize());
-*/
-		repeat(500)
+
+		finish_item(mx);
+
+		repeat(1)
 		begin
 			
 			start_item(mx);	
@@ -131,7 +117,7 @@ itm mx;
 			
 		end		
 
-//		finish_item(mx);
-//	end
+		
+	end
    endtask : body
 endclass : s0
