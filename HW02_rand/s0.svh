@@ -36,13 +36,18 @@ itm mx;
 
 	repeat(3)
 	begin
+		mx.opcode=E_push;
+		`uvm_rand_send(mx)
 		mx.opcode=E_reset;
 		`uvm_rand_send(mx)
 		mx.opcode=E_pushcomplete;
 		`uvm_rand_send(mx)
+
+	end
+
+	repeat(3)
+	begin
 		mx.opcode=E_push;
-		`uvm_rand_send(mx)
-		mx.opcode=E_reset;
 		`uvm_rand_send(mx)
 		mx.opcode=E_pushcomplete;
 		`uvm_rand_send(mx)
