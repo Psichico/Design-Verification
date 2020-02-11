@@ -105,24 +105,29 @@ itm mx;
 */
 		repeat(500)
 		begin
+			
+			start_item(mx);	
+			mx.opcode=E_push;
+			assert(mx.randomize());
+			finish_item(mx);
+
+			//start_item(mx);	
+			//mx.opcode=E_nop;
+			//assert(mx.randomize());
+			//#1ns;
+			//finish_item(mx);
+			
+			start_item(mx);	
+			mx.opcode=E_reset;
+			assert(mx.randomize());
+			#1ns;
+			finish_item(mx);
+
 			start_item(mx);	
 			mx.opcode=E_pushcomplete;
 			assert(mx.randomize());
-			finish_item(mx);
-
-			start_item(mx);	
-			//mx.opcode=E_push;
-			assert(mx.randomize());
 			#1ns;
-				
-			//mx.opcode=E_nop;
-			//assert(mx.randomize());
-			//mx.opcode=E_reset;
-			//assert(mx.randomize());
-			//mx.opcode=E_pushcomplete;
-			//assert(mx.randomize());
 			finish_item(mx);
-
 			
 		end		
 
