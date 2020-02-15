@@ -1,9 +1,9 @@
 
-package jems;
+package ALU_sequence; //user's package
 
-import uvm_pkg::*;
+import uvm_pkg::*; //necessary to include this package in user's package
 
-class my_sequence_item extends uvm_sequence_item;
+class my_sequence_item extends uvm_sequence_item; //sequence_item 
 
 	rand bit [3:0] test_bit;
 
@@ -11,7 +11,7 @@ class my_sequence_item extends uvm_sequence_item;
 		`uvm_field_int(test_bit, UVM_ALL_ON)
 	`uvm_object_utils_end
 	
-	function new(string name = "my_sequence_item");
+	function new(string name = "my_sequence_item"); //constructor
 		super.new(name);
 	endfunction
 
@@ -29,9 +29,10 @@ class my_sequence extends uvm_sequence;
 
 	task body ();
 		//create data and send
+        //my_sequence_item::test_bit test_bit0;
 		my_sequence_item seq_itm = my_sequence_item::type_id::create("seq_itm");
 		start_item(seq_itm);
-		seq_itm.randomize();
+		seq_itm.randomize();// with { seq_itm.test_bit == test_bit0;};
 		seq_itm.print();
 		finish_item(seq_itm);	
 	endtask
@@ -39,8 +40,8 @@ class my_sequence extends uvm_sequence;
 endclass : my_sequence
 
 /////////////////////////////////////////////////////////////////////////////////////////
-/*
-class my_sequencer extends uvm_sequencer; // #(my_seq_item);
+
+class my_sequencer extends uvm_sequencer #(my_sequence_item);
 	`uvm_component_utils(my_sequencer)
 
 	function new(string name="my_sequencer", uvm_component parent);
@@ -48,7 +49,7 @@ class my_sequencer extends uvm_sequencer; // #(my_seq_item);
 	endfunction
 
 endclass
-*/
+
 /////////////////////////////////////////////////////////////////////////////////////////
 
 class my_driver extends uvm_driver #(my_sequence_item);
@@ -86,13 +87,13 @@ class my_agent extends uvm_agent;
 	endfunction
 
 	my_driver drv_alu;
-//	my_sequencer seqr_alu;
-	uvm_sequencer #(my_sequence_item) sqr0;
+	my_sequencer sqr0;
+//	uvm_sequencer #(my_sequence_item) sqr0;
 	
 	function void build_phase (uvm_phase phase);
 		drv_alu = my_driver::type_id::create("DRIVER",this);
-		//seqr_alu = my_sequencer::type_id::create("SEQUENCER",this);
-		sqr0 = uvm_sequencer#(my_sequence_item)::type_id::create("sqr0",this);
+		sqr0 = my_sequencer::type_id::create("SEQUENCER",this);
+		//sqr0 = uvm_sequencer#(my_sequence_item)::type_id::create("sqr0",this);
 	endfunction
 
 	function void connect_phase(uvm_phase phase);
@@ -156,10 +157,10 @@ class my_test extends uvm_test;
 
 endclass : my_test
 
-endpackage : jems
+endpackage : ALU_sequence
 
 import uvm_pkg::*;
-import jems::*;
+import ALU_sequence::*;
 
 module top();
 	initial begin
