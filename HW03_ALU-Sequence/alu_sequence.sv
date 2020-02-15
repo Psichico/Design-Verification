@@ -13,7 +13,8 @@ class my_sequence extends uvm_sequence;
 		start_item(seq_itm);
 		seq_itm.randomize();// with { seq_itm.test_bit == test_bit0;};
 		seq_itm.print();
-		finish_item(seq_itm);	
+		finish_item(seq_itm);
+		
 	endtask
 
 endclass : my_sequence
