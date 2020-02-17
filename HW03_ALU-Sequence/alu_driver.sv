@@ -16,7 +16,8 @@ class my_driver extends uvm_driver #(my_sequence_item);
 		forever begin
 			my_sequence_item seq_itm;
 			seq_item_port.get_next_item(seq_itm);
-			
+		    //seq_itm.print();
+            `uvm_info("Driver", $sformatf(" Input A = %b, Input B = %b", seq_itm.test_bit_a, seq_itm.test_bit_b ), UVM_MEDIUM)
 			seq_item_port.item_done();
 		end
 	endtask
