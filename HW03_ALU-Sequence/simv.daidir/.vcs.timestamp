@@ -315,10 +315,10 @@ alu_top.sv
 sysc_uni_pwd=/home/014521416/Psichico/EE273/HW03_ALU-Sequence
 XRDP_SOCKET_PATH=/tmp/.xrdp
 XRDP_SESSION=1
-XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_14
-XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_14
+XRDP_PULSE_SOURCE_SOCKET=xrdp_chansrv_audio_in_socket_10
+XRDP_PULSE_SINK_SOCKET=xrdp_chansrv_audio_out_socket_10
 XMODIFIERS=@im=ibus
-XDG_SESSION_ID=6671
+XDG_SESSION_ID=6798
 XDG_RUNTIME_DIR=/run/user/1222971771
 XDG_MENU_PREFIX=gnome-
 XDG_DATA_DIRS=/home/014521416/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
@@ -339,9 +339,9 @@ UNAME=/bin/uname
 TOOL_HOME=/apps/synopsys/I-2014.03-2/linux
 TK_LIBRARY=/apps/synopsys/I-2014.03-2/etc/auxx/tcllib/tk8.4/library
 SSH_AUTH_SOCK=/run/user/1222971771/keyring/ssh
-SSH_AGENT_PID=11548
+SSH_AGENT_PID=29033
 SNPSLMS_LICENSE_FILE=27000@cadence3.engr.sjsu.edu:/apps/synopsys/license/current-license-key
-SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/11374,unix/unix:/tmp/.ICE-unix/11374
+SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/28864,unix/unix:/tmp/.ICE-unix/28864
 SCRNAME=vcs
 SCRIPT_NAME=vcs
 QT_PLUGIN_PATH=/usr/lib64/kde4/plugins:/usr/lib/kde4/plugins
@@ -366,13 +366,13 @@ IMSETTINGS_INTEGRATE_DESKTOP=yes
 HOSTTYPE=x86_64-linux
 HISTCONTROL=ignoredups
 GROUP=domain users
-GNOME_TERMINAL_SERVICE=:1.97
-GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/0ebe8cf0_ccb7_4f39_893b_7474d757bff2
+GNOME_TERMINAL_SERVICE=:1.99
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/b09d6cb5_6c82_4716_8e94_f5a3314ef239
 GNOME_SHELL_SESSION_MODE=classic
 GNOME_DESKTOP_SESSION_ID=this-is-deprecated
 DBUS_STARTER_BUS_TYPE=session
-DBUS_STARTER_ADDRESS=unix:abstract=/tmp/dbus-h1sIDkR8cV,guid=56b4c6475e88ac39a4e096295e4b45b9
-DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-h1sIDkR8cV,guid=56b4c6475e88ac39a4e096295e4b45b9
+DBUS_STARTER_ADDRESS=unix:abstract=/tmp/dbus-87RjkPAGnF,guid=71a5cd7c1e33b0c272cc15025e4b7583
+DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-87RjkPAGnF,guid=71a5cd7c1e33b0c272cc15025e4b7583
 COLORTERM=truecolor
 CDS_LIC_FILE=5280@COE-E239-EELIC.sjsuad.sjsu.edu:/apps/cadence/license-current
 CDSLMD_LICENSE_FILE=5280@COE-E239-EELIC.sjsuad.sjsu.edu:/apps/cadence/license-current
@@ -382,10 +382,10 @@ ARCH=linux
 1581991963 alu_test.sv
 1581798566 alu_environment.sv
 1581798258 alu_agent.sv
-1581991858 alu_driver.sv
+1582005154 alu_driver.sv
 1581791347 alu_sequencer.sv
-1581972000 alu_sequence.sv
-1581991923 alu_sequence_item.sv
+1582004419 alu_sequence.sv
+1582004992 alu_sequence_item.sv
 1402647219 /home/morris/uvm-1.2/src/reg/sequences/uvm_reg_mem_hdl_paths_seq.svh
 1402647219 /home/morris/uvm-1.2/src/reg/sequences/uvm_reg_mem_built_in_seq.svh
 1402647219 /home/morris/uvm-1.2/src/reg/sequences/uvm_reg_mem_shared_access_seq.svh
@@ -536,4 +536,4 @@ ARCH=linux
 1410372690 /apps/synopsys/I-2014.03-2/linux/lib/libvirsim.so
 1410372633 /apps/synopsys/I-2014.03-2/linux/lib/librterrorinf.so
 1410372654 /apps/synopsys/I-2014.03-2/linux/lib/libsnpsmalloc.so
-1581992007 simv.daidir
+1582005166 simv.daidir

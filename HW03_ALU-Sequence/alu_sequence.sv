@@ -13,7 +13,7 @@ class my_sequence extends uvm_sequence;
 		begin
 			start_item(seq_itm);
 			seq_itm.randomize();// with { seq_itm.test_bit_a == 32'h0;};
-			
+			//seq_itm.s_xor
 			//seq_itm.print();
 			finish_item(seq_itm);
 		end
