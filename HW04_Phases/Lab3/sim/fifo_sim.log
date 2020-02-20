@@ -1,7 +1,7 @@
 Command: ./simv -l fifo_sim.log
 Chronologic VCS simulator copyright 1991-2014
 Contains Synopsys proprietary information.
-Compiler version I-2014.03-2; Runtime version I-2014.03-2;  Feb 20 13:26 2020
+Compiler version I-2014.03-2; Runtime version I-2014.03-2;  Feb 20 15:20 2020
 ----------------------------------------------------------------
 UVM-1.1d.VCS
 (C) 2007-2013 Mentor Graphics Corporation
@@ -93,4 +93,4 @@ $finish at simulation time                    0
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 0 ns
 CPU Time:      0.180 seconds;       Data structure size:   0.1Mb
-Thu Feb 20 13:26:49 2020
+Thu Feb 20 15:20:26 2020

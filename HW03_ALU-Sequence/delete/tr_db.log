@@ -1,6 +1,0 @@
-  CREATE_STREAM @0 {NAME:seq_alu T:Transactions SCOPE:uvm_test_top.ENV_ALU.agnt_alu.sqr0 STREAM:551}
-  CREATE_STREAM @0 {NAME:seq_alu T:Transactions SCOPE:uvm_test_top.ENV_ALU.agnt_alu.sqr0 STREAM:551}
-  CREATE_STREAM @0 {NAME:seq_alu T:Transactions SCOPE:uvm_test_top.ENV_ALU.agnt_alu.sqr0 STREAM:551}
-  CREATE_STREAM @0 {NAME:seq_alu T:Transactions SCOPE:uvm_test_top.ENV_ALU.agnt_alu.sqr0 STREAM:551}
-  CREATE_STREAM @0 {NAME:seq_alu T:Transactions SCOPE:uvm_test_top.ENV_ALU.agnt_alu.sqr0 STREAM:551}
-  CREATE_STREAM @0 {NAME:seq_alu T:Transactions SCOPE:uvm_test_top.ENV_ALU.agnt_alu.SEQUENCER STREAM:551}

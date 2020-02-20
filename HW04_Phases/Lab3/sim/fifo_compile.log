@@ -2,7 +2,7 @@ Command: vcs -sverilog -ntb_opts uvm-1.1 -timescale=1ns/1ns +ntb_random_seed=val
 +incdir+../package +incdir+../test +incdir+../top +incdir+../uvc ../top/fifo_top.sv \
 -l fifo_compile.log
                          Chronologic VCS (TM)
-           Version I-2014.03-2 -- Thu Feb 20 13:26:43 2020
+           Version I-2014.03-2 -- Thu Feb 20 15:20:19 2020
                Copyright (c) 1991-2014 by Synopsys Inc.
                          ALL RIGHTS RESERVED
 
@@ -301,23 +301,22 @@ Top Level Modules:
 TimeScale is 1 ns / 1 ns
 Starting vcs inline pass...
 5 modules and 0 UDP read.
-	However, due to incremental compilation, only 1 module needs to be compiled.
-recompiling package fifo_pkg because:
-	This module or some inlined child module(s) has/have been modified.
+recompiling package vcs_paramclassrepository
+recompiling package uvm_pkg
+recompiling package fifo_pkg
+recompiling module fifo_top
+All of 5 modules done
 rm -f _csrc*.so linux_scvhdl_*.so pre_vcsobj_*.so share_vcsobj_*.so
+g++ -w  -pipe -m32 -fPIC -O -I/apps/synopsys/VCSMX_NEW/include    -c /apps/synopsys/VCSMX_NEW/etc/uvm-1.1/dpi/uvm_dpi.cc \
+
 ld -m elf_i386 -shared -o .//../simv.daidir//_csrc1.so --whole-archive _vcsobj_1_1.a \
 --no-whole-archive
 ld -m elf_i386 -shared -o .//../simv.daidir//_csrc0.so 5NrI_d.o 5NrIB_d.o SIM_l.o \
 
-ld -m elf_i386 -shared -o .//../simv.daidir//pre_vcsobj_0_1.so --whole-archive pre_vcsobj_0_1.a \
---no-whole-archive
-ld -m elf_i386 -shared -o .//../simv.daidir//pre_vcsobj_1_1.so --whole-archive pre_vcsobj_1_1.a \
---no-whole-archive
 if [ -x ../simv ]; then chmod -x ../simv; fi
 g++  -o ../simv  -m32 -m32   -Wl,-rpath-link=./ -Wl,-rpath='$ORIGIN'/simv.daidir/ \
 -Wl,-rpath='$ORIGIN'/simv.daidir//scsim.db.dir  /apps/synopsys/VCSMX_NEW/linux/lib/vpdlogstub.o \
-uvm_dpi.o  _csrc1.so _csrc0.so  pre_vcsobj_0_1.so pre_vcsobj_1_1.so  rmapats_mop.o \
-rmapats.o rmar.o           /apps/synopsys/VCSMX_NEW/linux/lib/libzerosoft_rt_stubs.so \
+uvm_dpi.o  _csrc1.so _csrc0.so    rmapats_mop.o rmapats.o rmar.o           /apps/synopsys/VCSMX_NEW/linux/lib/libzerosoft_rt_stubs.so \
 /apps/synopsys/VCSMX_NEW/linux/lib/libvirsim.so /apps/synopsys/VCSMX_NEW/linux/lib/librterrorinf.so \
 /apps/synopsys/VCSMX_NEW/linux/lib/libsnpsmalloc.so    /apps/synopsys/VCSMX_NEW/linux/lib/libvcsnew.so \
 /apps/synopsys/VCSMX_NEW/linux/lib/libuclinative.so   -Wl,-whole-archive /apps/synopsys/VCSMX_NEW/linux/lib/libvcsucli.so \
@@ -325,4 +324,4 @@ rmapats.o rmar.o           /apps/synopsys/VCSMX_NEW/linux/lib/libzerosoft_rt_stu
 /apps/synopsys/VCSMX_NEW/linux/lib/ctype-stubs_32.a -ldl  -lc -lm -lpthread -ldl \
 
 ../simv up to date
-CPU time: 3.448 seconds to compile + .024 seconds to elab + .233 seconds to link
+CPU time: 4.982 seconds to compile + .047 seconds to elab + .329 seconds to link
