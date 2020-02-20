@@ -1,18 +1,21 @@
 // This is the top most module that instantiates DUT and Testbench. 
 // We also pass a default test name here.
 
+
+`include "../package/fifo_pkg.sv"
+`include "uvm_macros.svh"
+
 module fifo_top(); 
 
-// Import UVM Packages
-// Include uvm_macros.svh
-// Include fifo_pkg. Mention the path rightly.
+	import uvm_pkg::*;
+	import fifo_pkg::*;
+	
+	initial begin
+		run_test("fifo_test"); // This argument will be a class name. 
+	end 
 
-  initial begin
-    run_test("PASS_FIFO_TEST_NAME_HERE"); // This argument will be a class name. 
-  end 
-
-  initial begin
-    #200 $finish; 
-  end 
+	initial begin
+		#200 $finish; 
+	end 
 
 endmodule : fifo_top

@@ -1,8 +1,5 @@
  In this assignment, we will learn UVM_PHASES. There are 9 main UVM Phases.
-
-  			
-
-			 _____________              _ 
+              _ 
 			/    BUILD    \              |
 			\_____________/              |
                               ||                     |
