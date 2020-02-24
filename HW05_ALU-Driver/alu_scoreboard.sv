@@ -3,6 +3,7 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 	
     //uvm_analysis_port #(my_sequence_item ,scoreboard) scoreboard_port;	        // 12.2.2.3 ports, exports and imps
     uvm_analysis_imp #(my_sequence_item ,my_scoreboard) scoreboard_port; //test the diff betwn port and imp
+	// TRY tlm analysis port
 
 	my_sequence_item seq_itm;
 	virtual my_interface intf;
@@ -12,31 +13,24 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 	endfunction : new
 	
 	function void build_phase(uvm_phase phase);     //build phase
-		`uvm_info("alu_scoreboard","build phase",UVM_MEDIUM);
+		`uvm_info("alu_scoreboard","build phase",UVM_NONE);		
 		scoreboard_port =  new("scoreboard_port building",this);
 		if (!uvm_config_db#(virtual my_interface)::get(this, "*", "my_interface", intf))
 		begin
 			`uvm_fatal("SB", "Could not get intf")
 		end
-		//a_buff = new("a_buff",this);
-		//b_buff = new("b_buff",this);
-		//z_buff = new("z_buff",this);
 	endfunction : build_phase
 
   	virtual function write (my_sequence_item seq_itm);
-		`uvm_info("scoreboard_Write", 
-		$psprintf("a=%0d b=%0d ctl=%0d z=%0d", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl, seq_itm.z), UVM_HIGH)
+        //$display("HELLLLOOOOO");
+		`uvm_info("scoreboard_Write",$psprintf("a=%0d b=%0d ctl=%0d z=%0d", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl, seq_itm.z), UVM_NONE)
   	endfunction
   	
 	task run_phase(uvm_phase phase);    //run phase
-
 		seq_itm = my_sequence_item::type_id::create("seq_itm",this);
-		
 //		forever begin
-//			`uvm_info("scoreboard", $psprintf("a=%0h b=%0h ctl=%b z=%b", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl, seq_itm.z), UVM_HIGH)
-
+			`uvm_info("scoreboard_1234", $psprintf("a=%0h b=%0h ctl=%b z=%b", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl, seq_itm.z), UVM_NONE)
 //		end
-	
 	endtask : run_phase
 
 endclass : my_scoreboard

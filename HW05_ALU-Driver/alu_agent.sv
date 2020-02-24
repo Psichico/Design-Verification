@@ -23,7 +23,7 @@ class my_agent extends uvm_agent;
 
 	function void connect_phase(uvm_phase phase); //connect driver to sequencer
 		drv_alu.seq_item_port.connect(sqr0.seq_item_export);
-		mon_alu.monitor_port.connect(agent_port);
+		//mon_alu.monitor_port.connect(agent_port);
 	endfunction
 
 endclass : my_agent
