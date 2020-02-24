@@ -5,7 +5,8 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
     uvm_analysis_imp #(my_sequence_item ,my_scoreboard) scoreboard_port; //test the diff betwn port and imp
 
 	my_sequence_item seq_itm;
-	
+	virtual my_interface intf;
+
 	function new(string name="alu_scoreboard",uvm_component parent=null); //create constructor
 		super.new(name,parent);
 	endfunction : new
@@ -13,6 +14,10 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 	function void build_phase(uvm_phase phase);     //build phase
 		`uvm_info("alu_scoreboard","build phase",UVM_MEDIUM);
 		scoreboard_port =  new("scoreboard_port building",this);
+		if (!uvm_config_db#(virtual my_interface)::get(this, "*", "my_interface", intf))
+		begin
+			`uvm_fatal("SB", "Could not get intf")
+		end
 		//a_buff = new("a_buff",this);
 		//b_buff = new("b_buff",this);
 		//z_buff = new("z_buff",this);
@@ -28,7 +33,7 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 		seq_itm = my_sequence_item::type_id::create("seq_itm",this);
 		
 //		forever begin
-			`uvm_info("scoreboard", $psprintf("a=%0h b=%0h ctl=%b z=%b", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl, seq_itm.z), UVM_HIGH)
+//			`uvm_info("scoreboard", $psprintf("a=%0h b=%0h ctl=%b z=%b", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl, seq_itm.z), UVM_HIGH)
 
 //		end
 	

@@ -47,10 +47,16 @@ module top();
 	end
 	
 	initial begin
+		rst = 0;
+		#2;
+		rst = 1;
+		#2;
+		rst = 0;
+		#2000		$finish;
+	end
+	initial begin
 		$dumpfile("dump.vcd");
 		$dumpvars();
-		//rst = 0;
-		#2000		$finish;
 	end
 endmodule
 

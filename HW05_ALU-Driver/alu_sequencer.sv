@@ -6,5 +6,13 @@ class my_sequencer extends uvm_sequencer #(my_sequence_item);
 		super.new(name,parent);
 	endfunction
 
+	function void build_phase(uvm_phase phase);
+		`uvm_info("sequencer","build phase",UVM_MEDIUM);
+	endfunction : build_phase
+	
+	task run_phase(uvm_phase phase);
+		`uvm_info("sequencer","packet sent",UVM_MEDIUM);
+	endtask : run_phase
+
 endclass
 

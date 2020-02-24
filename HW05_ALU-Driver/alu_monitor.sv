@@ -26,7 +26,7 @@ class my_monitor extends uvm_monitor;
 	//	my_sequence_item seq_itm = new;
 		`uvm_info("MONITOR","RUN PHASE", UVM_HIGH);
 		forever begin
-		@(posedge intf.clk);
+//		@(posedge intf.clk);
 		//if (!rst) begin
 		//	@(intf.a, intf.b);
 			//begin
@@ -38,10 +38,10 @@ class my_monitor extends uvm_monitor;
 				seq_itm.pushout = intf.pushout;
 				seq_itm.cout = intf.cout;
 				seq_itm.z = intf.z;
-				`uvm_info("MON", $psprintf("Z : %h", seq_itm.z), UVM_HIGH)
+//				`uvm_info("MON", $psprintf("Z : %h", seq_itm.z), UVM_HIGH)
 				//`uvm_info("MON", "HERE", UVM_HIGH)
 				monitor_port.write(seq_itm);
-				#1;
+				#5;
 			//end
 		end
 		

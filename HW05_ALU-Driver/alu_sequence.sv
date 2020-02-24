@@ -14,9 +14,9 @@ class my_sequence extends uvm_sequence;
 			seq_itm = my_sequence_item::type_id::create("seq_itm"); //should declare "THIS" or not??
 			start_item(seq_itm);			
 			seq_itm.randomize(); // with { seq_itm.test_bit_a == 32'h0;};
-			#1;
+			#5;
 			finish_item(seq_itm);
-			#1;
+			//#1;
 		end
 	endtask
 
