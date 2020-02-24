@@ -2,13 +2,10 @@ class my_sequence_item extends uvm_sequence_item; //sequence_item
 
 	rand bit [7:0] test_bit_a; //in
     rand bit [7:0] test_bit_b; //in
-    //rand bit s_xor;//delete
-    //rand bit s_add;//delete
-   // 	 bit [31:0] out_to_monitor; //delete
     
     rand bit pushin; //in
     bit stopout;
-    rand bit [1:0] ctl; //in
+    randc bit [1:0] ctl; //in
     
     rand bit ci; //in
     bit pushout;
@@ -16,7 +13,7 @@ class my_sequence_item extends uvm_sequence_item; //sequence_item
     bit my_cout;
     bit [7:0] z;
     bit [7:0] my_z;
-    rand stopin; //in
+    rand bit stopin; //in
 
 /*
     constraint my_constraints { test_bit_a[4] == 1; 
@@ -34,9 +31,5 @@ class my_sequence_item extends uvm_sequence_item; //sequence_item
 		super.new(name);
 	endfunction
 	
-    //task body ()
-
-
-
 endclass : my_sequence_item
 

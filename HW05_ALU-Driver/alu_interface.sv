@@ -1,5 +1,5 @@
 
-interface alu_interface(input reg clk, reg rst); //not a good practice, but lets see what happens
+interface my_interface(input clk, input rst); //not a good practice, but lets see what happens
 
 logic clk,rst,pushin,ci; //inputs here
 logic stopout; //output
@@ -19,4 +19,4 @@ logic stopin;
 
 
 
-endinterface : alu_interface
+endinterface : my_interface
