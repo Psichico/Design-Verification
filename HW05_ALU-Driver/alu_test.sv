@@ -8,6 +8,9 @@ class my_test extends uvm_test;
 
 	my_environment env_alu;
 
+	//virtual alu_interface intf;
+	alu_interface intf;
+	
 	virtual function void build_phase (uvm_phase phase);
 		super.build_phase (phase);
 		env_alu = my_environment::type_id::create("env_alu", this);

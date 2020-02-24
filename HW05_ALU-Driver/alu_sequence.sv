@@ -9,9 +9,10 @@ class my_sequence extends uvm_sequence;
 	task body ();
 		my_sequence_item seq_itm = my_sequence_item::type_id::create("seq_itm");
 		
-		repeat(500)
+		repeat(3)
 		begin
 			start_item(seq_itm);
+			
 			seq_itm.randomize();// with { seq_itm.test_bit_a == 32'h0;};
 			//seq_itm.s_xor
 			//seq_itm.print();

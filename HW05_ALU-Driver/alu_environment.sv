@@ -7,17 +7,18 @@ class my_environment extends uvm_env;
 	
 	//instantiate scoreboard, agent(driver, sequencer, monitor) here.
 	my_agent agnt_alu;
+	my_scoreboard sb_alu;
 	
 	//create agent and scoreboard
 	virtual function void build_phase(uvm_phase phase);
 		super.build_phase (phase);
 		agnt_alu = my_agent::type_id::create("agnt_alu",this);
-		//sb_alu = sb_alu::type_id::create ("sb_alu", this);
+		sb_alu = sb_alu::type_id::create ("sb_alu", this);
 	endfunction
 
 	virtual function void connect_phase(uvm_phase phase);
 		super.connect_phase(phase);
-		//
+		agnt_alu.mon_alu.monitor_port.connect(sb_alu.scoreboard_port);
 	endfunction
 
 endclass : my_environment
