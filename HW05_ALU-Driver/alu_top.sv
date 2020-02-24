@@ -39,7 +39,7 @@ module top();
 	end
 	
 	initial begin
-		repeat(100)
+		repeat(1000)
 		begin
 			#1 clk = 0;
 			#1 clk = 1;
@@ -47,8 +47,10 @@ module top();
 	end
 	
 	initial begin
-		rst = 0;
-		#500 $finish;
+		$dumpfile("dump.vcd");
+		$dumpvars();
+		//rst = 0;
+		#2000		$finish;
 	end
 endmodule
 

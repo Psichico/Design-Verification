@@ -18,7 +18,8 @@ class my_environment extends uvm_env;
 
 	virtual function void connect_phase(uvm_phase phase);
 		super.connect_phase(phase);
-		agnt_alu.mon_alu.monitor_port.connect(sb_alu.scoreboard_port);
+		agnt_alu.agent_port.connect(sb_alu.scoreboard_port);
+//		agnt_alu.mon_alu.monitor_port.connect(sb_alu.scoreboard_port);
 	endfunction
 
 endclass : my_environment

@@ -1,7 +1,7 @@
 
-interface my_interface(input clk, input rst); //not a good practice, but lets see what happens
+interface my_interface(input logic clk, input logic rst); //not a good practice, but lets see what happens
 
-logic clk,rst,pushin,ci; //inputs here
+logic pushin,ci; //inputs here
 logic stopout; //output
 
 logic [1:0] ctl; 
