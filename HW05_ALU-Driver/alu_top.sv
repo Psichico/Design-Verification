@@ -52,7 +52,7 @@ module top();
 		rst = 1;
 		#2;
 		rst = 0;
-		#2000		$finish;
+		#1000		$finish;
 	end
 	initial begin
 		$dumpfile("dump.vcd");

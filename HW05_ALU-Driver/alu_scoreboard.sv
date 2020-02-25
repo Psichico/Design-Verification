@@ -22,15 +22,40 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 	endfunction : build_phase
 
   	virtual function write (my_sequence_item seq_itm);
-        //$display("HELLLLOOOOO");
-		`uvm_info("scoreboard_Write",$psprintf("a=%0d b=%0d ctl=%0d z=%0d", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl, seq_itm.z), UVM_NONE)
-  	endfunction
+        //`uvm_info("SCOREBOARD","write function", UVM_NONE)
+        if (seq_itm.ctl == 2'b01) 
+		begin
+			seq_itm.my_z = seq_itm.test_bit_a + seq_itm.test_bit_b;
+            $display("..........................................................................ctl = 01");
+		end
+
+		else if (seq_itm.ctl == 2'b11)
+		begin
+			seq_itm.my_z = seq_itm.test_bit_a ^ seq_itm.test_bit_b;                
+            $display("..........................................................................ctl = 11");
+		end
+
+        else if (seq_itm.ctl == 2'b00)
+        begin
+            seq_itm.my_z = seq_itm.test_bit_a;
+            $display("..........................................................................ctl = 00");
+        end
+		else
+		begin
+            seq_itm.my_z = seq_itm.test_bit_a - seq_itm.test_bit_b;	
+            $display("..........................................................................ctl = 10");
+		end
+
+		if (seq_itm.my_z == seq_itm.z)
+			`uvm_info("SCBD", $sformatf("PASS  out=%0d expected=%0d, ctl=%d", seq_itm.z, seq_itm.my_z, seq_itm.ctl), UVM_NONE)
+		else 
+			`uvm_info("SCBD", $sformatf("FAIL  out=%0d expected=%0d, ctl=%d", seq_itm.z, seq_itm.my_z, seq_itm.ctl), UVM_NONE)
+
   	
-	task run_phase(uvm_phase phase);    //run phase
+  	endfunction
+	
+    task run_phase(uvm_phase phase);    //run phase
 		seq_itm = my_sequence_item::type_id::create("seq_itm",this);
-//		forever begin
-			`uvm_info("scoreboard_1234", $psprintf("a=%0h b=%0h ctl=%b z=%b", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl, seq_itm.z), UVM_NONE)
-//		end
 	endtask : run_phase
 
 endclass : my_scoreboard

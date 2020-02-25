@@ -33,18 +33,18 @@ class my_monitor extends uvm_monitor;
 		//if (!rst) begin
 		//	@(intf.a, intf.b);
 			//begin
-				seq_itm.ctl = intf.ctl;
-				seq_itm.test_bit_a = intf.a;
-				seq_itm.test_bit_b = intf.b;
-				seq_itm.pushin = intf.pushin;
-				seq_itm.stopout = intf.stopout;
-				seq_itm.pushout = intf.pushout;
-				seq_itm.cout = intf.cout;
-				seq_itm.z = intf.z;
+				seq_itm.ctl <= intf.ctl;
+				seq_itm.test_bit_a <= intf.a;
+				seq_itm.test_bit_b <= intf.b;
+				seq_itm.pushin <= intf.pushin;
+				seq_itm.stopout <= intf.stopout;
+				seq_itm.pushout <= intf.pushout;
+				seq_itm.cout <= intf.cout;
+				seq_itm.z <= intf.z;
 				`uvm_info("MON", $psprintf("Z : %h", seq_itm.z), UVM_NONE)
 				//`uvm_info("MON", "HERE", UVM_NONE)
 				monitor_port.write(seq_itm);
-				#1;
+				//#1;
 			//end
 		end
 		
