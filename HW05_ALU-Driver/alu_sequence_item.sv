@@ -15,8 +15,14 @@ class my_sequence_item extends uvm_sequence_item; //sequence_item
     bit [7:0] my_z;
     rand bit stopin; //in
     
-    constraint my_constraints {	ctl == 2'b00;
-    							test_bit_a == 8'h05;
+    constraint my_constraints { test_bit_a[7] == 0;
+                                test_bit_b[7] == 0;
+                                test_bit_a >= test_bit_b;
+                                ci == 0;
+                                stopin == 0;
+                                //ctl == 2'b01;
+//                                ctl == 2'b00;
+//    							test_bit_a == 8'h05;
     							}
 
 /*

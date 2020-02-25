@@ -1,5 +1,4 @@
 class my_driver extends uvm_driver #(my_sequence_item);
-	
 	`uvm_component_utils(my_driver)
 
 	function new(string name = "my_driver", uvm_component parent = null);
@@ -22,17 +21,20 @@ class my_driver extends uvm_driver #(my_sequence_item);
 		super.run_phase(phase);
 		forever begin
 			seq_item_port.get_next_item(seq_itm);
-			//seq_itm.print();
-			intf.a <= seq_itm.test_bit_a ;
-			intf.b <= seq_itm.test_bit_b ;
-			intf.pushin <= seq_itm.pushin ;
-			intf.ctl <= seq_itm.ctl ;
-			intf.ci <= seq_itm.ci ;
-			intf.stopin <= seq_itm.stopin ;
-			`uvm_info("DRIVER", $psprintf("A = %h , B = %h, Z=%h, ctl=%h", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.z, seq_itm.ctl), UVM_MEDIUM)	 	
+			drive(seq_itm);
+            `uvm_info("DRIVER", $psprintf("A = %d , B = %d, ctl=%d", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl), UVM_NONE)	 	
 			seq_item_port.item_done();
-			
 		end
 	endtask
+
+        virtual task drive(my_sequence_item seq_itm);
+        @(posedge intf.clk);
+            intf.a <= seq_itm.test_bit_a ;
+            intf.b <= seq_itm.test_bit_b ;
+            intf.pushin <= seq_itm.pushin ;
+            intf.ctl <= seq_itm.ctl ;
+            intf.ci <= seq_itm.ci ;
+            intf.stopin <= seq_itm.stopin ;
+        endtask : drive
 
 endclass : my_driver

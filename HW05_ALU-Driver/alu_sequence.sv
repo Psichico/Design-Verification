@@ -9,7 +9,7 @@ class my_sequence extends uvm_sequence;
 	my_sequence_item seq_itm;
 	
 	task body();
-		repeat(30)
+		repeat(300)
 		begin
 			seq_itm = my_sequence_item::type_id::create("seq_itm"); //should declare "THIS" or not??
 			start_item(seq_itm);			

@@ -48,9 +48,9 @@ module top();
 	
 	initial begin
 		rst = 0;
-		#2;
+		#1;
 		rst = 1;
-		#2;
+		#5;
 		rst = 0;
 		#1000		$finish;
 	end
