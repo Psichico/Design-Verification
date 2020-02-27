@@ -2,10 +2,10 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 	`uvm_component_utils(my_scoreboard)      //uvm_macro
 	
     //uvm_analysis_port #(my_sequence_item ,scoreboard) scoreboard_port;	        // 12.2.2.3 ports, exports and imps
-    uvm_analysis_imp #(my_sequence_item ,my_scoreboard) scoreboard_port; //test the diff betwn port and imp
+    uvm_analysis_imp #(my_packet ,my_scoreboard) scoreboard_port; //test the diff betwn port and imp
 	// TRY tlm analysis port
 
-	my_sequence_item seq_itm;
+	my_packet pkt_itm;
 	virtual my_interface intf;
 
 	function new(string name="alu_scoreboard",uvm_component parent=null); //create constructor
@@ -21,38 +21,38 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 		end
 	endfunction : build_phase
 
-  	virtual function write (my_sequence_item seq_itm);
+  	virtual function write (my_packet pkt_itm);
         //`uvm_info("SCOREBOARD","write function", UVM_NONE)
-        if (seq_itm.ctl == 2'b01) 
+        if (pkt_itm.ctl == 2'b01) 
 		begin
-			seq_itm.my_z = seq_itm.test_bit_a + seq_itm.test_bit_b;
+			pkt_itm.my_z = pkt_itm.test_bit_a + pkt_itm.test_bit_b;
             //$display("..........................................................................ctl = 01");
 		end
 
 		else if (seq_itm.ctl == 2'b11)
 		begin
-			seq_itm.my_z = seq_itm.test_bit_a ^ seq_itm.test_bit_b;                
+			pkt_itm.my_z = pkt_itm.test_bit_a ^ pkt_itm.test_bit_b;                
             //$display("..........................................................................ctl = 11");
 		end
 
-        else if (seq_itm.ctl == 2'b00)
+        else if (pkt_itm.ctl == 2'b00)
         begin
-            seq_itm.my_z = seq_itm.test_bit_a;
+            pkt_itm.my_z = pkt_itm.test_bit_a;
             //$display("..........................................................................ctl = 00");
         end
-		else if (seq_itm.ctl == 2'b10)
+		else if (pkt_itm.ctl == 2'b10)
 		begin
-            seq_itm.my_z = seq_itm.test_bit_a - seq_itm.test_bit_b;	
+            pkt_itm.my_z = pkt_itm.test_bit_a - pkt_itm.test_bit_b;	
             //$display("..........................................................................ctl = 10");
 		end
 
        // else
         //  seq_itm.my_z = seq_itm.my_z;
 
-		if (seq_itm.my_z == seq_itm.z)
-			`uvm_info("SCBD", $sformatf("PASS  a=%d, b= %d, z=%d my_z=%d, ctl=%d",seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.z, seq_itm.my_z, seq_itm.ctl), UVM_NONE)
+		if (pkt_itm.my_z == pkt_itm.z)
+			`uvm_info("SCBD", $sformatf("PASS  a=%d, b= %d, z=%d my_z=%d, ctl=%d",pkt_itm.test_bit_a, pkt_itm.test_bit_b, pkt_itm.z, pkt_itm.my_z, pkt_itm.ctl), UVM_NONE)
 		else 
-			`uvm_info("SCBD", $sformatf("FAIL  a=%d, b= %d, z=%d my_z=%d, ctl=%d",seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.z, seq_itm.my_z, seq_itm.ctl), UVM_NONE)
+			`uvm_info("SCBD", $sformatf("FAIL  a=%d, b= %d, z=%d my_z=%d, ctl=%d",pkt_itm.test_bit_a, pkt_itm.test_bit_b, pkt_itm.z, pkt_itm.my_z, pkt_itm.ctl), UVM_NONE)
 
   	
   	endfunction

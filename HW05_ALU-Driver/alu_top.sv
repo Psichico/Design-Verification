@@ -4,6 +4,7 @@ package ALU_sequence; //user's package
 
 import uvm_pkg::*; //necessary to include this package in user's package
 //`include "alu_interface.sv"
+`include "alu_packet.sv"
 `include "alu_sequence_item.sv"
 `include "alu_sequence.sv"
 `include "alu_sequencer.sv"
