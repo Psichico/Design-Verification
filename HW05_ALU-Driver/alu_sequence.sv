@@ -1,5 +1,4 @@
 class my_sequence extends uvm_sequence;
-	
 	`uvm_object_utils(my_sequence)
 
 	function new(string name = "my_sequence");
@@ -16,7 +15,7 @@ class my_sequence extends uvm_sequence;
 			seq_itm.randomize(); // with { seq_itm.test_bit_a == 32'h0;};
 			#5;
 			finish_item(seq_itm);
-			//#1;
+			#1;
 		end
 	endtask
 

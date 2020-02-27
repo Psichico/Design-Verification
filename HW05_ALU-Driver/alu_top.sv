@@ -1,5 +1,3 @@
-`include "/ALU_DUTs/alu.sv"
-
 package ALU_sequence; //user's package
 
 import uvm_pkg::*; //necessary to include this package in user's package

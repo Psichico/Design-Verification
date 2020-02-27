@@ -25,24 +25,24 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
         //`uvm_info("SCOREBOARD","write function", UVM_NONE)
         if (seq_itm.ctl == 2'b01) 
 		begin
-			seq_itm.my_z = seq_itm.test_bit_a + seq_itm.test_bit_b;
+			seq_itm.my_z = seq_itm.test_bit_c + seq_itm.test_bit_d;
             //$display("..........................................................................ctl = 01");
 		end
 
 		else if (seq_itm.ctl == 2'b11)
 		begin
-			seq_itm.my_z = seq_itm.test_bit_a ^ seq_itm.test_bit_b;                
+			seq_itm.my_z = seq_itm.test_bit_c ^ seq_itm.test_bit_d;                
             //$display("..........................................................................ctl = 11");
 		end
 
         else if (seq_itm.ctl == 2'b00)
         begin
-            seq_itm.my_z = seq_itm.test_bit_a;
+            seq_itm.my_z = seq_itm.test_bit_c;
             //$display("..........................................................................ctl = 00");
         end
 		else if (seq_itm.ctl == 2'b10)
 		begin
-            seq_itm.my_z = seq_itm.test_bit_a - seq_itm.test_bit_b;	
+            seq_itm.my_z = seq_itm.test_bit_c - seq_itm.test_bit_d;	
             //$display("..........................................................................ctl = 10");
 		end
 
@@ -50,9 +50,9 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
         //  seq_itm.my_z = seq_itm.my_z;
 
 		if (seq_itm.my_z == seq_itm.z)
-			`uvm_info("SCBD", $sformatf("PASS  a=%d, b= %d, z=%d my_z=%d, ctl=%d",seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.z, seq_itm.my_z, seq_itm.ctl), UVM_NONE)
+			`uvm_info("SCBD", $sformatf("PASS  a=%d, b= %d, z=%d my_z=%d, ctl=%d",seq_itm.test_bit_c, seq_itm.test_bit_d, seq_itm.z, seq_itm.my_z, seq_itm.ctl), UVM_NONE)
 		else 
-			`uvm_info("SCBD", $sformatf("FAIL  a=%d, b= %d, z=%d my_z=%d, ctl=%d",seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.z, seq_itm.my_z, seq_itm.ctl), UVM_NONE)
+			`uvm_info("SCBD", $sformatf("FAIL  a=%d, b= %d, z=%d my_z=%d, ctl=%d",seq_itm.test_bit_c, seq_itm.test_bit_d, seq_itm.z, seq_itm.my_z, seq_itm.ctl), UVM_NONE)
 
   	
   	endfunction

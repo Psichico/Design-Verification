@@ -19,6 +19,7 @@ class my_driver extends uvm_driver #(my_sequence_item);
 
 	task run_phase (uvm_phase phase);
 		super.run_phase(phase);
+		`uvm_info("DRIVER","RUN PHASE", UVM_MEDIUM);
 		forever begin
 			seq_item_port.get_next_item(seq_itm);
 			drive(seq_itm);
@@ -31,10 +32,10 @@ class my_driver extends uvm_driver #(my_sequence_item);
         @(posedge intf.clk);
             intf.a <= seq_itm.test_bit_a ;
             intf.b <= seq_itm.test_bit_b ;
-            intf.pushin <= seq_itm.pushin ;
+            //intf.pushin <= seq_itm.pushin ;
             intf.ctl <= seq_itm.ctl ;
-            intf.ci <= seq_itm.ci ;
-            intf.stopin <= seq_itm.stopin ;
+            //intf.ci <= seq_itm.ci ;
+            //intf.stopin <= seq_itm.stopin ;
         endtask : drive
 
 endclass : my_driver
