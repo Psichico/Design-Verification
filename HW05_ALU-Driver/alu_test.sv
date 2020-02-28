@@ -26,7 +26,7 @@ class my_test extends uvm_test;
 		phase.raise_objection(this);
 	    seq_alu = my_sequence::type_id::create("seq_alu",this);
 		seq_alu.start(env_alu.agnt_alu.sqr0);
-		#100;
+		#500;
 		phase.drop_objection(this);
 	endtask
 

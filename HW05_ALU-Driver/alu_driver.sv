@@ -27,7 +27,7 @@ class my_driver extends uvm_driver #(my_sequence_item);
 			if(seq_itm.stopin == 0)
             begin
 			    drive(seq_itm);
-                `uvm_info("DRIVER", $psprintf("IF A = %d , B = %d, ctl=%d", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl), UVM_MEDIUM)	 	
+                `uvm_info("DRIVER", $psprintf("IF A = %d , B = %d, ctl=%d, pi=%d, stpin=%d", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl, seq_itm.pushin, seq_itm.stopin), UVM_MEDIUM)	 	
 			    seq_item_port.item_done();
             end
             else
@@ -35,7 +35,7 @@ class my_driver extends uvm_driver #(my_sequence_item);
                // seq_item_port.get_next_item(seq_itm);
 			   // drive(seq_itm);
                 `uvm_info("DRIVER", $psprintf("ELSE "), UVM_MEDIUM)	 	
-			    //seq_item_port.item_done();
+			    seq_item_port.item_done();
             end
 		end
 	endtask

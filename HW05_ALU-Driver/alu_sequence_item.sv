@@ -23,8 +23,8 @@ class my_sequence_item extends uvm_sequence_item;
                                 test_bit_b[7] == 0;
                                 test_bit_a >= test_bit_b;
                                 ci == 0;
-                                stopin == 0;
-                                ctl == 2'b00;
+                                //stopin == 0;
+                                //ctl == 2'b00;
                                 //pushin == 1;
                               }
 

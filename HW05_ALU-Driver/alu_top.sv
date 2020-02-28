@@ -1,4 +1,4 @@
-`include "/ALU_DUTs/alu.sv"
+//`include "/ALU_DUTs/alu.sv"
 package ALU_sequence; //user's package
 
 import uvm_pkg::*; //necessary to include this package in user's package
@@ -50,9 +50,9 @@ module top();
 		rst = 0;
 		#1;
 		rst = 1;
-		#5;
+		#2;
 		rst = 0;
-		#500		$finish;
+		#1000		$finish;
 	end
 	initial begin
 		//$dumpfile("dump.vcd");
