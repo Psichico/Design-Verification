@@ -25,7 +25,7 @@ class my_sequence_item extends uvm_sequence_item;
                                 ci == 0;
                                 stopin == 0;
                                 ctl == 2'b00;
-                                pushin == 1;
+                                //pushin == 1;
                               }
 
 	function new(string name = "my_sequence_item");

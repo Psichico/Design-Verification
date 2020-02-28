@@ -25,9 +25,20 @@ class my_monitor_out extends uvm_monitor;
         forever begin    
             @(posedge intf.clk);// or negedge intf.clk);
 		    seq_itm = my_sequence_item::type_id::create("seq_itm",this);
-			seq_itm.z = intf.z;     
-			`uvm_info("MONITOR_OUT", $sformatf("z=%d",seq_itm.z), UVM_NONE)
-            monitor_port.write(seq_itm);
+            if(intf.pushout == 1)
+            begin
+			    seq_itm.z = intf.z;     
+			    `uvm_info("MONITOR_OUT", $sformatf("IF z=%d",seq_itm.z), UVM_NONE)
+                monitor_port.write(seq_itm);
+
+            end
+            else
+            begin
+                seq_itm.z = seq_itm.z;
+			    `uvm_info("MONITOR_OUT", $sformatf("ELSE z=%d",seq_itm.z), UVM_NONE)
+                monitor_port.write(seq_itm);
+            end
+
             #10;
 		end	
 	endtask
