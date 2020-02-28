@@ -23,7 +23,8 @@ class my_monitor extends uvm_monitor;
 		`uvm_info("MONITOR","RUN PHASE", UVM_NONE);
 		
         forever begin    
-            //@(posedge intf.clk);// or negedge intf.clk);
+            #10;
+            @(posedge intf.clk);// or negedge intf.clk);
 		    seq_itm = my_sequence_item::type_id::create("seq_itm",this);
 			seq_itm.ctl = intf.ctl;
 			seq_itm.test_bit_c = intf.a;

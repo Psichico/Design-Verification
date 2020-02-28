@@ -6,10 +6,11 @@ class my_driver extends uvm_driver #(my_sequence_item);
 	endfunction
 
 	virtual my_interface intf;	
-	my_sequence_item seq_itm;
+	
 	
 	function void build_phase(uvm_phase phase);
 		super.build_phase (phase);
+//		seq_itm = my_sequence_item::type_id::create("seq_itm",this); //why not???
 		if (!uvm_config_db#(virtual my_interface)::get(this, "", "my_interface", intf))
 		begin	
 			`uvm_fatal("DRV", "Could not get intf") 
@@ -20,6 +21,7 @@ class my_driver extends uvm_driver #(my_sequence_item);
 		super.run_phase(phase);
 		`uvm_info("DRIVER","RUN PHASE", UVM_MEDIUM);
 		forever begin
+			my_sequence_item seq_itm;
 			`uvm_info("DRIVER","Getting seq", UVM_MEDIUM);
 			seq_itm = my_sequence_item::type_id::create("seq_itm",this);
 			`uvm_info("DRIVER","waiting for seq", UVM_MEDIUM);

@@ -83,6 +83,7 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
     task run_phase(uvm_phase phase);    //run phase
 		
 		forever begin		
+           #100;
 			seq_itm = my_sequence_item::type_id::create("seq_itm",this);
 			//my_sequence_item.try_get(scoreboard_port);
 			//scoreboard_port_2.get(seq_itm);
