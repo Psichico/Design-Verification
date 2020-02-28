@@ -55,8 +55,8 @@ module top();
 		#500		$finish;
 	end
 	initial begin
-		$dumpfile("dump.vcd");
-		$dumpvars();
+		//$dumpfile("dump.vcd");
+		//$dumpvars();
 	end
 endmodule
 

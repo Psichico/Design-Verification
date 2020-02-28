@@ -1,11 +1,11 @@
-class my_monitor_2 extends uvm_monitor;
-    `uvm_component_utils(my_monitor_2)
+class my_monitor_out extends uvm_monitor;
+    `uvm_component_utils(my_monitor_out)
 
 	uvm_analysis_port #(my_sequence_item) monitor_port;
 	virtual	my_interface intf;
 	my_sequence_item seq_itm;
 	
-	function new (string name = "my_monitor_2", uvm_component parent = null);
+	function new (string name = "my_monitor_out", uvm_component parent = null);
 		super.new(name, parent);
 	endfunction
 	
@@ -14,26 +14,25 @@ class my_monitor_2 extends uvm_monitor;
 		monitor_port = new("monitor_port", this);
 		if (!uvm_config_db#(virtual my_interface)::get(this, "*", "my_interface", intf))
 		begin
-			`uvm_fatal("MON", "Could not get vif")
+			`uvm_fatal("MONITOR_OUT", "Could not get V-Interface")
 		end
 	endfunction
 
 	virtual task run_phase(uvm_phase phase);
 		super.run_phase(phase);
-		`uvm_info("MONITOR_2","RUN PHASE", UVM_NONE);
+		`uvm_info("MONITOR_OUT","RUN PHASE", UVM_NONE);
 		
         forever begin    
             @(posedge intf.clk);// or negedge intf.clk);
 		    seq_itm = my_sequence_item::type_id::create("seq_itm",this);
-			seq_itm.z = intf.z;
+			seq_itm.z = intf.z;     
+			`uvm_info("MONITOR_OUT", $sformatf("z=%d",seq_itm.z), UVM_NONE)
             monitor_port.write(seq_itm);
+            #10;
 		end	
 	endtask
 
-endclass : my_monitor_2
-
-
-
+endclass : my_monitor_out
 
 
 

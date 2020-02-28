@@ -1,11 +1,11 @@
-class my_monitor extends uvm_monitor;
-    `uvm_component_utils(my_monitor)
+class my_monitor_in extends uvm_monitor;
+    `uvm_component_utils(my_monitor_in)
 
 	uvm_analysis_port #(my_sequence_item) monitor_port;
 	virtual	my_interface intf;
 	my_sequence_item seq_itm;
 	
-	function new (string name = "my_monitor", uvm_component parent = null);
+	function new (string name = "my_monitor_in", uvm_component parent = null);
 		super.new(name, parent);
 	endfunction
 	
@@ -14,26 +14,25 @@ class my_monitor extends uvm_monitor;
 		monitor_port = new("monitor_port", this);
 		if (!uvm_config_db#(virtual my_interface)::get(this, "*", "my_interface", intf))
 		begin
-			`uvm_fatal("MON", "Could not get vif")
+			`uvm_fatal("MONITOR_IN", "Could not get vif")
 		end
 	endfunction
 
 	virtual task run_phase(uvm_phase phase);
 		super.run_phase(phase);
-		`uvm_info("MONITOR","RUN PHASE", UVM_NONE);
+		`uvm_info("MONITOR_IN","RUN PHASE", UVM_MEDIUM);
 		
-        forever begin    
-            #10;
-            @(posedge intf.clk);// or negedge intf.clk);
-		    seq_itm = my_sequence_item::type_id::create("seq_itm",this);
-			seq_itm.ctl = intf.ctl;
+        forever begin
+            @(posedge intf.clk);
+		    seq_itm = my_sequence_item::type_id::create("seq_itm",this); //should I create this here??
+			
+            seq_itm.ctl = intf.ctl;
 			seq_itm.test_bit_c = intf.a;
 			seq_itm.test_bit_d = intf.b;
-            //@(posedge intf.clk);
-            //seq_itm.z = intf.z;
-			`uvm_info("MON", $sformatf("a=%d, b= %d, z=%d my_z=%d, ctl=%d",seq_itm.test_bit_c, seq_itm.test_bit_d, seq_itm.z, seq_itm.my_z, seq_itm.ctl), UVM_NONE)
+			`uvm_info("MONITOR_IN", $sformatf("a=%d, b= %d, ctl=%d",seq_itm.test_bit_c, seq_itm.test_bit_d, seq_itm.ctl), UVM_NONE)
             monitor_port.write(seq_itm);
+            #10;
 		end	
 	endtask
 
-endclass : my_monitor
+endclass : my_monitor_in

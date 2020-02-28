@@ -6,11 +6,11 @@ class my_driver extends uvm_driver #(my_sequence_item);
 	endfunction
 
 	virtual my_interface intf;	
-	
+    my_sequence_item seq_itm; //why here and not in body loop??
 	
 	function void build_phase(uvm_phase phase);
 		super.build_phase (phase);
-//		seq_itm = my_sequence_item::type_id::create("seq_itm",this); //why not???
+//		seq_itm = my_sequence_item::type_id::create("seq_itm",this); //why not create the sequence???
 		if (!uvm_config_db#(virtual my_interface)::get(this, "", "my_interface", intf))
 		begin	
 			`uvm_fatal("DRV", "Could not get intf") 
@@ -21,21 +21,17 @@ class my_driver extends uvm_driver #(my_sequence_item);
 		super.run_phase(phase);
 		`uvm_info("DRIVER","RUN PHASE", UVM_MEDIUM);
 		forever begin
-			my_sequence_item seq_itm;
-			`uvm_info("DRIVER","Getting seq", UVM_MEDIUM);
-			seq_itm = my_sequence_item::type_id::create("seq_itm",this);
-			`uvm_info("DRIVER","waiting for seq", UVM_MEDIUM);
+	    @(posedge intf.clk);	
+		//	seq_itm = my_sequence_item::type_id::create("seq_itm",this);
 			seq_item_port.get_next_item(seq_itm);
-			`uvm_info("DRIVER","Got seq", UVM_MEDIUM);
 			drive(seq_itm);
-			`uvm_info("DRIVER","seq driven", UVM_MEDIUM);
-            `uvm_info("DRIVER", $psprintf("A = %d , B = %d, ctl=%d", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl), UVM_NONE)	 	
+            `uvm_info("DRIVER", $psprintf("A = %d , B = %d, ctl=%d", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl), UVM_MEDIUM)	 	
 			seq_item_port.item_done();
 		end
 	endtask
 
         virtual task drive(my_sequence_item seq_itm);
-        @(posedge intf.clk);
+            //drive all the inputs in your DUT
             intf.a <= seq_itm.test_bit_a ;
             intf.b <= seq_itm.test_bit_b ;
             intf.pushin <= seq_itm.pushin ;
