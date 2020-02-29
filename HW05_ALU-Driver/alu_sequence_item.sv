@@ -12,20 +12,17 @@ class my_sequence_item extends uvm_sequence_item;
     bit cout;
     bit my_cout;
     bit [7:0] z;
-    
-    //my variables
+
     bit [7:0] my_z;
-	bit [7:0] test_bit_c; //in
-    bit [7:0] test_bit_d; //in
     
     constraint my_constraints { 
                                 test_bit_a[7] == 0;
                                 test_bit_b[7] == 0;
                                 test_bit_a >= test_bit_b;
                                 ci == 0;
-                                //stopin == 0;
+                                stopin == 0;
                                 //ctl == 2'b00;
-                                //pushin == 1;
+                                pushin == 1;
                               }
 
 	function new(string name = "my_sequence_item");

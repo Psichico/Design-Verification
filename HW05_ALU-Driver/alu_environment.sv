@@ -8,7 +8,6 @@ class my_environment extends uvm_env;
 	//instantiate scoreboard, agent(driver, sequencer, monitor) here.
 	my_agent agnt_alu;
 	my_scoreboard sb_alu;
-	
 	my_monitor_out mon_alu_2;
 	
 	//create agent and scoreboard

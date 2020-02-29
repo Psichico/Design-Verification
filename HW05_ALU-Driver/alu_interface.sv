@@ -14,9 +14,6 @@ logic cout; //output
 logic [7:0] z; //output
 logic stopin;
 
-//modport alu_mod(input clk, reset, 
-//                output );
-
 
 
 endinterface : my_interface

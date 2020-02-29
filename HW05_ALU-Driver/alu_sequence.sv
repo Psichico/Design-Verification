@@ -8,16 +8,14 @@ class my_sequence extends uvm_sequence;
 	my_sequence_item seq_itm;
 	
 	task body();
-		`uvm_info("SEQUENCE","BODY task", UVM_MEDIUM);
-		repeat(10)
+		`uvm_info("SEQUENCE","Body Task", UVM_MEDIUM);
+		repeat(100)
 		begin
-			seq_itm = my_sequence_item::type_id::create("seq_itm"); //should declare "THIS" or not??
+			seq_itm = my_sequence_item::type_id::create("seq_itm"); 
 			start_item(seq_itm);			
-			seq_itm.randomize(); // with { seq_itm.test_bit_a == 32'h0;};
-			
-		   //`uvm_info("SEQUENCE","Repeat loop", UVM_MEDIUM);
+			seq_itm.randomize();
+            #10;
 			finish_item(seq_itm);
-            #5;
 		end
 	endtask
 

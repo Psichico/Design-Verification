@@ -25,23 +25,12 @@ class my_monitor_in extends uvm_monitor;
         forever begin
             @(posedge intf.clk);
 		    seq_itm = my_sequence_item::type_id::create("seq_itm",this); //should I create this here??
-		    if(intf.pushin == 1)
-            begin
-                seq_itm.ctl = intf.ctl;
-			    seq_itm.test_bit_c = intf.a;
-			    seq_itm.test_bit_d = intf.b;
-			    `uvm_info("MONITOR_IN", $sformatf("IF a=%d, b= %d, ctl=%d",seq_itm.test_bit_c, seq_itm.test_bit_d, seq_itm.ctl), UVM_NONE)
+            seq_itm.ctl = intf.ctl;
+			seq_itm.test_bit_a = intf.a;
+			seq_itm.test_bit_b = intf.b;
+			//`uvm_info("MONITOR_IN", $sformatf("a=%d, b= %d, ctl=%d",seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl), UVM_NONE)
+            if(intf.pushin == 1)
                 monitor_port.write(seq_itm);
-            end
-            else
-            begin 
-                seq_itm.ctl = seq_itm.ctl;
-			    seq_itm.test_bit_c = seq_itm.test_bit_c;
-			    seq_itm.test_bit_d = seq_itm.test_bit_d;
-			    `uvm_info("MONITOR_IN", $sformatf("ELSE a=%d, b= %d, ctl=%d",seq_itm.test_bit_c, seq_itm.test_bit_d, seq_itm.ctl), UVM_NONE)
-                monitor_port.write(seq_itm);
-            end
-            #10;
 		end	
 	endtask
 
