@@ -1,9 +1,0 @@
-#!/usr/bin/csh
-source /apps/set_license
-
-rm *.key
-rm *.h
-
-rm -d -rf *.daidir
-
-rm -d -rf csrc
