@@ -3,15 +3,15 @@ class my_sequence_item extends uvm_sequence_item;
 	    
     //constraint my_constraints { }
     
-    bit detect_5;
-    bit detect_10;
-    bit detect_25;
-    bit [9] amount;
-    bit buy;
-    bit return_coins;
-    bit empty_5;
-    bit empty_10;
-    bit empty_25;
+    rand bit detect_5;
+    rand bit detect_10;
+    rand bit detect_25;
+    rand bit [9] amount;
+    rand bit buy;
+    rand bit return_coins;
+    rand bit empty_5;
+    rand bit empty_10;
+    rand bit empty_25;
     bit ok;
     bit return_5;
     bit return_10;
