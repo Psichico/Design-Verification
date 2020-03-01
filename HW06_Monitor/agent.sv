@@ -10,13 +10,13 @@ class my_agent extends uvm_agent;
 	//Instantiate driver, sequencer, monitor
 	my_driver drv;
 	my_sequencer sqr;
-	my_monitor_in mon;
+	my_monitor mon;
 //	uvm_sequencer #(my_sequence_item) sqr0; //default sequencer
 	
 	function void build_phase (uvm_phase phase);
 		drv = my_driver::type_id::create("DRIVER",this);
 		sqr = my_sequencer::type_id::create("SEQUENCER",this);
-		mon = my_monitor_in::type_id::create("MONITOR",this);	
+		mon = my_monitor::type_id::create("MONITOR",this);	
 		agent_port = new("agent_port",this);
 		//sqr0 = uvm_sequencer#(my_sequence_item)::type_id::create("sqr0",this); //default sequencer
 	endfunction

@@ -8,7 +8,7 @@ class my_environment extends uvm_env;
 	//instantiate scoreboard, agent(driver, sequencer, monitor) here.
 	my_agent agnt;
 	my_scoreboard sb;
-	my_monitor_out mon;
+	my_monitor mon;
 	
 	virtual function void build_phase(uvm_phase phase);
 		super.build_phase (phase);

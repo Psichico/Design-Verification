@@ -7,13 +7,13 @@ class my_test extends uvm_test;
 
     //instantiate Environment, interface, sequence
 	my_environment env; 
-	virtual my_interface intf; 
+	virtual vend_intf intf; 
 	my_sequence seq;
 	
 	virtual function void build_phase (uvm_phase phase);
 		super.build_phase (phase);
 		env = my_environment::type_id::create("ENV", this);
-		if (!uvm_config_db#(virtual my_interface)::get(this, "*", "my_interface", intf))
+		if (!uvm_config_db#(virtual vend_intf)::get(this, "*", "my_interface", intf))
 			`uvm_fatal("TEST", "Could not get virtual interface")
 	endfunction
 

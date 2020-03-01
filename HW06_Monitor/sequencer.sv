@@ -7,7 +7,7 @@ class my_sequencer extends uvm_sequencer #(my_sequence_item);
 	endfunction
 
 	function void build_phase(uvm_phase phase);
-		`uvm_info("SEQUENCER","build phase",UVM_MEDIUM);
+		`uvm_info("SEQUENCER","BUILD PHASE",UVM_MEDIUM);
 	endfunction : build_phase
 	
 	task run_phase(uvm_phase phase);
