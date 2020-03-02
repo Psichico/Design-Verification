@@ -4,7 +4,5 @@ source /apps/set_license
 cd HW0*
 rm *.key
 rm *.h
-
 rm -d -rf *.daidir
-
 rm -d -rf csrc

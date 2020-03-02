@@ -1,5 +1,4 @@
-`include "/ALU_DUTs/alu.sv"
-
+//`include "/ALU_DUTs/alu.sv"
 package ALU_sequence; //user's package
 
 import uvm_pkg::*; //necessary to include this package in user's package
@@ -10,6 +9,7 @@ import uvm_pkg::*; //necessary to include this package in user's package
 `include "alu_sequencer.sv"
 `include "alu_driver.sv"
 `include "alu_monitor.sv"
+`include "alu_monitor_2.sv"
 `include "alu_agent.sv"
 `include "alu_scoreboard.sv"
 `include "alu_environment.sv"
@@ -51,13 +51,13 @@ module top();
 		rst = 0;
 		#1;
 		rst = 1;
-		#5;
+		#2;
 		rst = 0;
 		#1000		$finish;
 	end
 	initial begin
-		$dumpfile("dump.vcd");
-		$dumpvars();
+		//$dumpfile("dump.vcd");
+		//$dumpvars();
 	end
 endmodule
 

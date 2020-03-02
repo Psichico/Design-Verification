@@ -8,8 +8,8 @@ class my_sequence extends uvm_sequence;
 	my_sequence_item seq_itm;
 	
 	task body();
-		`uvm_info("SEQUENCE","Body Task", UVM_MEDIUM);
-		repeat(100)
+      `uvm_info("SEQUENCE","TASK", UVM_MEDIUM);
+		repeat(10)
 		begin
 			seq_itm = my_sequence_item::type_id::create("seq_itm"); 
 			start_item(seq_itm);			

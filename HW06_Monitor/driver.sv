@@ -5,14 +5,17 @@ class my_driver extends uvm_driver #(my_sequence_item);
 		super.new(name, parent);
 	endfunction
 
-	virtual my_interface intf;	
+	// Instantiate interface, sequence item. 
+	virtual vend_intf intf;	
     my_sequence_item seq_itm; 
 	
 	function void build_phase(uvm_phase phase);
 		super.build_phase (phase);
-		if (!uvm_config_db#(virtual my_interface)::get(this, "", "my_interface", intf))
+		// VOID: uvm_config_db#(type T = int)::set(uvm_component cntxt, string inst_name, string field_name, T value);
+		// BIT:  uvm_config_db#(type T = int)::get(uvm_component cntxt, string inst_name, string field_name, ref T value);
+		if (!uvm_config_db#(virtual vend_intf)::get(this, "*", "my_interface", intf))
 		begin	
-			`uvm_fatal("DRV", "Could not get intf") 
+			`uvm_fatal("DRIVER", "Could not get virtual interface") 
 		end
 	endfunction
 
@@ -23,19 +26,15 @@ class my_driver extends uvm_driver #(my_sequence_item);
 	    @(posedge intf.clk);	
             seq_item_port.get_next_item(seq_itm);
 			drive(seq_itm);
-            //`uvm_info("DRIVER", $psprintf("IF A = %d , B = %d, ctl=%d, pi=%d, stpin=%d", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl, seq_itm.pushin, seq_itm.stopin), UVM_MEDIUM)	 	
+            //`uvm_info("DRIVER", $sformatf(" ", ), UVM_MEDIUM)	 	
             seq_item_port.item_done();
 		end
-	endtask
+	endtask : run_phase
 
         virtual task drive(my_sequence_item seq_itm);
             //drive all the inputs in your DUT
-            intf.a <= seq_itm.test_bit_a ;
-            intf.b <= seq_itm.test_bit_b ;
-            intf.pushin <= seq_itm.pushin;
-            intf.ctl <= seq_itm.ctl ;
-            intf.ci <= seq_itm.ci ;
-            intf.stopin <= seq_itm.stopin ;
+            `uvm_info("DRIVER", $sformatf("Driving Sequence"), UVM_MEDIUM)
         endtask : drive
+
 
 endclass : my_driver
