@@ -2,7 +2,7 @@ class monitor extends uvm_monitor;
     `uvm_component_utils(monitor)
    
     sequence_item seq_itm;
-    virtual my_interface itrfc;
+    virtual vend_intf itrfc;
 	uvm_analysis_port #(sequence_item) tp;	
 
     function new(string name="monitor",uvm_component parent);
@@ -11,7 +11,7 @@ class monitor extends uvm_monitor;
 
 	function void build_phase(uvm_phase phase);
 	    `uvm_info("monitor","build phase",UVM_MEDIUM);
-        uvm_config_db#(virtual my_interface)::get(null,"*","virtual_interface",itrfc);
+        uvm_config_db#(virtual vend_intf)::get(null,"*","virtual_interface",itrfc);
 		tp =  new("define object tp of analysis port",this);
         //seq_itm = new("define object seq_itm of sequence item class",this);
     endfunction : build_phase

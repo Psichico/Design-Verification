@@ -1,0 +1,1 @@
+  CREATE_STREAM @0 {NAME:test_seq T:Transactions SCOPE:uvm_test_top.env_glbl.agent.sequencer STREAM:639}

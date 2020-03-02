@@ -6,12 +6,12 @@ class agent extends uvm_agent;
 	endfunction
 	
 	// create analysis port
-	uvm_analysis_port #(my_sequence_item) port_agnt;
+	uvm_analysis_port #(sequence_item) port_agnt;
 
 	//Instantiate driver, sequencer, monitor
-	my_driver drv;
-	my_sequencer seq;
-	my_monitor mtr;
+	driver drv;
+	sequencer seq;
+	monitor mtr;
 //	uvm_sequencer #(my_sequence_item) sqr0; //default sequencer
 	
 	function void build_phase (uvm_phase phase);
@@ -25,5 +25,5 @@ class agent extends uvm_agent;
         drv.seq_item_port.connect(seq.seq_item_export);
 	endfunction
 
-endclass : my_agent
+endclass : agent
 

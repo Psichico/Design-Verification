@@ -1,5 +1,5 @@
 class sequencer extends uvm_sequencer #(sequence_item);
-	`uvm_sequencer_utils(sequencer)
+	`uvm_component_utils(sequencer)
 	
 	function new(string name="sequencer",uvm_component parent);
 		super.new(name,parent);

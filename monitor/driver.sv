@@ -2,7 +2,7 @@ class driver extends uvm_driver #(sequence_item);
 	`uvm_component_utils(driver)
 	
     sequence_item seq_itm;
-    virtual my_interface itrfc;
+    virtual vend_intf itrfc;
 
     function new(string name="driver",uvm_component parent);
 	    super.new(name,parent);
@@ -11,7 +11,7 @@ class driver extends uvm_driver #(sequence_item);
 	function void build_phase(uvm_phase phase);
 	    `uvm_info("driver","build phase",UVM_MEDIUM);
         seq_itm = sequence_item::type_id::create("sequence_item",this); 
-        uvm_config_db#(virtual my_interface)::get(null,"*","virtual_interface",itrfc);
+        uvm_config_db#(virtual vend_intf)::get(null,"*","virtual_interface",itrfc);
     endfunction : build_phase
 
     virtual task run_phase(uvm_phase phase);

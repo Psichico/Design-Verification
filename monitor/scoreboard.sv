@@ -5,7 +5,7 @@ class scoreboard extends uvm_scoreboard;
     sequence_item seq_itm;
     sequence_item new_itm_rx;
     sequence_item qrx [$];
-    virtual my_interface itrfc; 
+    virtual vend_intf itrfc; 
 
 	uvm_analysis_imp#(sequence_item,scoreboard) rp;	
  
@@ -18,7 +18,7 @@ class scoreboard extends uvm_scoreboard;
 	function void build_phase(uvm_phase phase);
 		`uvm_info("scoreboard","build phase",UVM_MEDIUM);
         rp = new("define object rp of imp port",this);
-        uvm_config_db#(virtual my_interface)::get(null,"*","virtual_interface",itrfc);
+        uvm_config_db#(virtual vend_intf)::get(null,"*","virtual_interface",itrfc);
 	endfunction : build_phase
 
 
@@ -26,6 +26,7 @@ class scoreboard extends uvm_scoreboard;
 
     `uvm_info("SB","run phase",UVM_MEDIUM);
     forever begin
+        #2;
         seq_itm = sequence_item::type_id::create("seq_itm",this);
         new_itm_rx = sequence_item::type_id::create("new_itm_rx",this); //not sure if it should be here or in build phase
         if(qrx.size()!=0) begin
