@@ -23,6 +23,11 @@ module top();
 		$display("\n\n\nRan out of clocks\n\n\n");
 		$finish;
 	end
+	
+	initial begin
+		$dumpfile("dump.vcd");
+		$dumpvars();
+	end
 
 	initial begin
 		uvm_config_db #(virtual vend_intf)::set(null, "*", "my_interface" , vendx);

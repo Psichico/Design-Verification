@@ -13,8 +13,8 @@ class my_sequence extends uvm_sequence;
 		begin
 			seq_itm = my_sequence_item::type_id::create("seq_itm"); 
 			start_item(seq_itm);			
-			seq_itm.randomize();
             #10;
+			seq_itm.randomize();
 			finish_item(seq_itm);
 		end
 	endtask
