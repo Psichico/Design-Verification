@@ -6,6 +6,7 @@ module vend(input reg clk,input reg reset,input detect_5
 ,input detect_10 ,input detect_25 ,input [8:0] amount ,input buy ,input return_coins 
 ,input empty_5 ,input empty_10 ,input empty_25 ,output ok ,output return_5 
 ,output return_10 ,output return_25 );
+
     reg _out_ok;
     assign ok=_out_ok;
     reg _out_return_5;
@@ -21,6 +22,7 @@ module vend(input reg clk,input reg reset,input detect_5
     reg ret_25,ret_25_d;
     reg [3:0] sm_state_var,sm_state_var_d;
     reg [3:0] sm_return_var,sm_return_var_d;
+  
     always @(*) begin
         acc_d=acc;
         cnt_d=cnt;
@@ -38,6 +40,7 @@ module vend(input reg clk,input reg reset,input detect_5
 
         sm_state_var_d=sm_state_var;  // state holds value 
         sm_return_var_d=sm_return_var; // return value hold
+  
         case(sm_state_var)
             0 : begin // state Sreset
                 cnt_d = 1'b0;
