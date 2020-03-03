@@ -31,17 +31,7 @@ class my_driver extends uvm_driver #(my_sequence_item);
             seq_item_port.item_done();
 		end
 	endtask : run_phase
-/*
-		virtual task assign_values(my_sequence_item seq_itm);
-	
-			seq_itm.ok=seq_itm._out_ok;
-			seq_itm.return_5=seq_itm._out_return_5;
-			seq_itm.return_10=seq_itm._out_return_10;
-			seq_itm.return_25=seq_itm._out_return_25;
-			`uvm_info("DRIVER", $sformatf("Assigning values"), UVM_MEDIUM)
 
-		endtask : assign_values
-*/
         virtual task drive(my_sequence_item seq_itm);
             //drive all the inputs in your DUT
             intf.detect_5 = seq_itm.detect_5;
