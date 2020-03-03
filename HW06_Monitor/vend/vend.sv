@@ -182,7 +182,8 @@ module vend(input reg clk,input reg reset,input detect_5
             ret_25 <= 0;
             sm_state_var <= 0;
             sm_return_var <= 0;
-        end else begin
+        end 
+        else begin
             acc<= #1 acc_d;
             cnt<= #1 cnt_d;
             ret_5<= #1 ret_5_d;

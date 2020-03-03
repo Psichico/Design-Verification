@@ -36,8 +36,17 @@ class my_sequence_item extends uvm_sequence_item;
 	
     constraint vend{
                     return_coins != buy;
-                    
-                    }
+                    detect_5 == 0;
+                    detect_10 == 0;
+                    detect_25 == 0;
+                    amount == 0;
+                    buy == 0;
+                    return_coins == 0;
+                    empty_5 == 0;
+                    empty_10 == 0;
+                    empty_25 == 0;
+                  
+                  }
 /*    
     `uvm_object_utils_begin(my_sequence_item)
 		`uvm_field_int(test_bit_a, UVM_ALL_ON)
