@@ -7,29 +7,45 @@ class my_sequence extends uvm_sequence;
 	
 	my_sequence_item seq_itm;
 	
-	task body();
+	virtual task body();
       `uvm_info("SEQUENCE","TASK", UVM_MEDIUM);
-		repeat(10)
+		repeat(5)
 		begin
-			seq_itm = my_sequence_item::type_id::create("seq_itm"); 
-			start_item(seq_itm);			
-            seq_itm.randomize();
-            #10;
-            seq_itm.amount = 9'b000001010;
-            one(seq_itm);
-			finish_item(seq_itm);
-		end
+			seq_itm = my_sequence_item::type_id::create("seq_itm"); //inside the repeat loop or not?? 
+		   $display("BUYING A PRODUCT NOW");
+            sequence_buy(seq_itm); //sequence 1: to buy a product
+        end
 	endtask
 
-    task one(my_sequence_item seq_itm);
-        seq_itm.detect_5 = 1;
-        #1;
-        seq_itm.detect_5 = 0;
-        #1;
-        seq_itm.buy = 1;
-        #1;
-        seq_itm.buy = 0;
-      endtask : one
+    task sequence_buy(my_sequence_item seq_itm);
+        detect_coins(seq_itm);
+        buy_product(seq_itm);
+    endtask: sequence_buy
+
+    task detect_coins(my_sequence_item seq_itm);
+      //just giving a pulse of detect_5 coin.
+        start_item(seq_itm);
+        seq_itm.randomize() with {detect_5 == 1; detect_10 == 0; detect_25==0; buy==0; return_coins==0; empty_25==0; empty_10==0; empty_5==0;};
+        finish_item(seq_itm);
+
+        start_item(seq_itm);
+        seq_itm.randomize() with {detect_5 == 0; detect_10 == 0; detect_25==0; buy==0; return_coins==0; empty_25==0; empty_10==0; empty_5==0;};
+        finish_item(seq_itm);
+    endtask: detect_coins
+
+
+    task buy_product(my_sequence_item seq_itm);
+        
+        start_item(seq_itm);
+        seq_itm.randomize() with {detect_5 == 0; detect_10 == 0; detect_25==0; buy==1; return_coins==0; empty_25==0; empty_10==0; empty_5==0;};
+        finish_item(seq_itm);
+
+        start_item(seq_itm);
+        seq_itm.randomize() with {detect_5 == 0; detect_10 == 0; detect_25==0; buy==0; return_coins==0; empty_25==0; empty_10==0; empty_5==0;};
+        finish_item(seq_itm);
+
+    endtask: buy_product
+
 
 endclass : my_sequence
 

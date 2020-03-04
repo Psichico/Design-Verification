@@ -25,9 +25,9 @@ class my_driver extends uvm_driver #(my_sequence_item);
 		forever begin
 	    @(posedge intf.clk);	
             seq_item_port.get_next_item(seq_itm);
-//			assign_values(seq_itm);
+            seq_itm.display();
+            seq_itm.amount = 8'd50;
 			drive(seq_itm);
-            //`uvm_info("DRIVER", $sformatf(" ", ), UVM_MEDIUM)	 	
             seq_item_port.item_done();
 		end
 	endtask : run_phase
@@ -43,7 +43,7 @@ class my_driver extends uvm_driver #(my_sequence_item);
             intf.empty_5 = seq_itm.empty_5;
             intf.empty_10 = seq_itm.empty_10;
             intf.empty_25 = seq_itm.empty_25;
-            `uvm_info("DRIVER", $sformatf("Driving Sequence: %d %d  ", seq_itm.detect_5, seq_itm.detect_10), UVM_MEDIUM)
+           // `uvm_info("DRIVER", $sformatf("Driving Sequence: %d %d  ", seq_itm.detect_5, seq_itm.detect_10), UVM_MEDIUM)
         endtask : drive
 
 
