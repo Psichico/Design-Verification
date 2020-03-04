@@ -20,7 +20,7 @@ class my_environment extends uvm_env;
 	virtual function void connect_phase(uvm_phase phase);
 		super.connect_phase(phase);
 		agnt.mon.monitor_port.connect(sb.in_port);
-		ref_mon.ref_port.connect(sb.out_port)
+		ref_mon.ref_port.connect(sb.out_port);
 	endfunction
 
 	task run_phase (uvm_phase phase);

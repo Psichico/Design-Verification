@@ -27,7 +27,7 @@ class ref_model extends uvm_monitor;
 		    seq_itm = my_sequence_item::type_id::create("seq_itm",this); //should I create this here??           
 			`uvm_info("MONITOR_IN", $sformatf("In run phase of monitor"), UVM_NONE)
 			get_from_intf(seq_itm);
-            ref_port.write_ref(seq_itm);
+            ref_port.write(seq_itm);
 		end	
 	endtask
 
@@ -38,4 +38,4 @@ class ref_model extends uvm_monitor;
         seq_itm.return_25 = intf.return_25;
 	endtask: get_from_intf
 
-endclass : my_monitor
+endclass : ref_model
