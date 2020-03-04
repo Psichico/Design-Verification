@@ -8,6 +8,7 @@ import uvm_pkg::*; //necessary to include this package in user's package
 `include "sequencer.sv"
 `include "driver.sv"
 `include "monitor.sv"
+`include "reference.sv"
 `include "agent.sv"
 `include "scoreboard.sv"
 `include "environment.sv"
