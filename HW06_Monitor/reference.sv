@@ -28,6 +28,7 @@ class ref_model extends uvm_monitor;
 			`uvm_info("MONITOR_IN", $sformatf("In run phase of monitor"), UVM_NONE)
 			get_from_intf(seq_itm);
             ref_port.write(seq_itm);
+		   	`uvm_info("MON_LIST", $sformatf("%d  %d  %d  %d", intf.return_5, intf.return_10, intf.return_25, intf.ok), UVM_MEDIUM)
 		end	
 	endtask
 
