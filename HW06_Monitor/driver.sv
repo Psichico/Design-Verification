@@ -26,7 +26,7 @@ class my_driver extends uvm_driver #(my_sequence_item);
 	    @(posedge intf.clk);	
             seq_item_port.get_next_item(seq_itm);
             seq_itm.display();
-            seq_itm.amount = 8'd50;
+            seq_itm.amount = 8'd3;
 			drive(seq_itm);
             seq_item_port.item_done();
 		end

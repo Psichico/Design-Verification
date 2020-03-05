@@ -16,6 +16,9 @@ module top();
 		clk=0;
 		rst=0;
 		#5;
+        rst = 1;
+        #100;
+        rst = 0;
 		repeat(1000000) begin
 		    #5 clk=1;
 		    #5 clk=0;
