@@ -19,12 +19,13 @@ class my_sequence extends uvm_sequence;
 
     task sequence_buy(my_sequence_item seq_itm);
         detect_coins(seq_itm);
+        #100;
         buy_product(seq_itm);
     endtask: sequence_buy
 
     task detect_coins(my_sequence_item seq_itm);
       //just giving a pulse of detect_5 coin.
-        repeat(10)
+        repeat(3)
         begin 
             start_item(seq_itm);
             seq_itm.randomize() with {detect_5 == 1; detect_10 == 0; detect_25==0; buy==0; return_coins==0; empty_25==0; empty_10==0; empty_5==0;};
@@ -42,9 +43,13 @@ class my_sequence extends uvm_sequence;
         start_item(seq_itm);
         seq_itm.randomize() with {detect_5 == 0; detect_10 == 0; detect_25==0; buy==1; return_coins==0; empty_25==0; empty_10==0; empty_5==0;};
         finish_item(seq_itm);
-
+        
         start_item(seq_itm);
-        seq_itm.randomize() with {detect_5 == 0; detect_10 == 0; detect_25==0; buy==1; return_coins==0; empty_25==0; empty_10==0; empty_5==0;};
+        seq_itm.randomize() with {detect_5 == 0; detect_10 == 0; detect_25==0; buy==0; return_coins==0; empty_25==0; empty_10==0; empty_5==0;};
+        finish_item(seq_itm);
+        
+        start_item(seq_itm);
+        seq_itm.randomize() with {detect_5 == 0; detect_10 == 0; detect_25==0; buy==0; return_coins==1; empty_25==0; empty_10==0; empty_5==0;};
         finish_item(seq_itm);
         
         start_item(seq_itm);
