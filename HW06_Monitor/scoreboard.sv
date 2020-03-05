@@ -1,10 +1,10 @@
-//	`uvm_analysis_imp_decl(_a)
-	`uvm_analysis_imp_decl(_ref)
 	
 class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 	`uvm_component_utils(my_scoreboard)      //uvm_macro
+	`uvm_analysis_imp_decl (_in)
+	`uvm_analysis_imp_decl (_ref)
 	
-    uvm_analysis_imp #(my_sequence_item ,my_scoreboard) in_port; //test the diff betwn port and imp
+    uvm_analysis_imp_in #(my_sequence_item ,my_scoreboard) in_port; //test the diff betwn port and imp
 	uvm_analysis_imp_ref #(my_sequence_item ,my_scoreboard) out_port;
 	my_sequence_item seq_itm;
 
@@ -26,7 +26,8 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 
 	function new(string name="my_scoreboard",uvm_component parent=null); //create constructor
 		super.new(name,parent);
-		scoreboard_port =  new("scoreboard_port building",this);
+		in_port =  new("in_port building",this);
+		out_port =  new("out_port building",this);
 	endfunction : new
 	
 	function void build_phase(uvm_phase phase);     //build phase
@@ -40,13 +41,13 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 		end
 	endfunction : build_phase
 
-  	virtual function write(my_sequence_item seq_itm);
+  	virtual function void write_in(my_sequence_item seq_itm);
        queue_in.push_back(seq_itm);
-  	endfunction
+  	endfunction: write_in
 
-	virtual function write_ref(my_sequence_item seq_itm);
+	virtual function void write_ref(my_sequence_item seq_itm);
        queue_out.push_back(seq_itm);
-  	endfunction
+  	endfunction: write_ref
 
 	virtual function void compare();
 		if (sb_ok == seq_itm_out.ok)
