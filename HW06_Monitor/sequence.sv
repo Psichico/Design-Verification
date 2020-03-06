@@ -9,7 +9,7 @@ class my_sequence extends uvm_sequence;
 	
 	virtual task body();
       `uvm_info("SEQUENCE","TASK", UVM_MEDIUM);
-		repeat(5)
+		repeat(1)
 		begin
 			seq_itm = my_sequence_item::type_id::create("seq_itm"); //inside the repeat loop or not?? 
 		   $display("BUYING A PRODUCT NOW");
@@ -19,22 +19,21 @@ class my_sequence extends uvm_sequence;
 
     task sequence_buy(my_sequence_item seq_itm);
         detect_coins(seq_itm);
-        #100;
         buy_product(seq_itm);
     endtask: sequence_buy
 
     task detect_coins(my_sequence_item seq_itm);
       //just giving a pulse of detect_5 coin.
-        repeat(3)
-        begin 
+        //repeat()
+        //begin 
             start_item(seq_itm);
-            seq_itm.randomize() with {detect_5 == 1; detect_10 == 0; detect_25==0; buy==0; return_coins==0; empty_25==0; empty_10==0; empty_5==0;};
+            seq_itm.randomize() with {detect_5 == 0; detect_10 == 0; detect_25==1; buy==0; return_coins==0; empty_25==0; empty_10==0; empty_5==0;};
             finish_item(seq_itm);
 
             start_item(seq_itm);
             seq_itm.randomize() with {detect_5 == 0; detect_10 == 0; detect_25==0; buy==0; return_coins==0; empty_25==0; empty_10==0; empty_5==0;};
             finish_item(seq_itm);
-        end
+        //end
     endtask: detect_coins
 
 

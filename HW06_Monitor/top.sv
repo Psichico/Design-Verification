@@ -14,10 +14,10 @@ module top();
 
 	initial begin
 		clk=0;
-		rst=0;
+		rst=1;
 		#5;
         rst = 1;
-        #100;
+        #10;
         rst = 0;
 		repeat(1000000) begin
 		    #5 clk=1;
