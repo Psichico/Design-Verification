@@ -22,11 +22,12 @@ class ref_model extends uvm_monitor;
 	virtual task run_phase(uvm_phase phase);
 		super.run_phase(phase);
 		`uvm_info("MONITOR","RUN PHASE", UVM_MEDIUM);
+		    seq_itm = my_sequence_item::type_id::create("seq_itm",this); //should I create this here??           
         forever begin
         @(posedge intf.clk);
-		    seq_itm = my_sequence_item::type_id::create("seq_itm",this); //should I create this here??           
 			//`uvm_info("MONITOR_IN", $sformatf("In run phase of monitor"), UVM_NONE)
 			get_from_intf(seq_itm);
+            //@(posedge intf.clk);
             ref_port.write(seq_itm);
 		   	//`uvm_info("Ref", $sformatf("%d  %d  %d  %d", intf.return_5, intf.return_10, intf.return_25, intf.ok), UVM_MEDIUM)
 		end	

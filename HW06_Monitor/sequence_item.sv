@@ -17,7 +17,6 @@ class my_sequence_item extends uvm_sequence_item;
     reg return_10;
     reg return_25;
 
-    reg [19:0] drv_cnt;
 /*
     reg _out_ok;
     reg _out_return_5;
