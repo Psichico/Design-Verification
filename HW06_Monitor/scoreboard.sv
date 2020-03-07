@@ -35,6 +35,14 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 		seq_itm = my_sequence_item::type_id::create("seq_itm",this);
 		seq_itm_in = my_sequence_item::type_id::create("seq_itm_in",this);
 		seq_itm_out = my_sequence_item::type_id::create("seq_itm_out",this);
+			    sb_detect_5 = 0;
+                sb_detect_10 = 0;
+                sb_detect_25 = 0;
+                sb_out_ret_5 = 1'b0;
+                sb_out_ret_10 = 1'b0;
+                sb_out_ret_25 = 1'b0;
+                sb_cnt = 1'b0;
+		        sb_ok = 1'b0;
         if (!uvm_config_db#(virtual vend_intf)::get(this, "*", "my_interface", intf))
 		begin
 			`uvm_fatal("SB", "Could not get virtual interface")
@@ -48,148 +56,109 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 	virtual function void write_ref(my_sequence_item seq_itm);
        queue_out.push_back(seq_itm);
   	endfunction: write_ref
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	virtual function void my_compare();
-		if (sb_ok == seq_itm_out.ok)
-	    	`uvm_info("SCBD", $sformatf("PASS sb_ok %d = seq_ok %d || buy = %d", sb_ok, seq_itm_out.ok, seq_itm_in.buy), UVM_MEDIUM)
-		else	
-			`uvm_info("SCBD", $sformatf("FAIL sb_ok %d = seq_ok %d || buy = %d", sb_ok, seq_itm_out.ok, seq_itm_in.buy), UVM_MEDIUM)
 
-		if ( sb_out_ret_5 == seq_itm_out.return_5)
-		   	`uvm_info("SCBD", $sformatf("PASS sb_ret_5 %d = seq_ret_5 %d", sb_out_ret_5, seq_itm_out.return_5), UVM_MEDIUM)
-		else
-		   	`uvm_info("SCBD", $sformatf("FAIL sb_ret_5 %d = seq_ret_5 %d", sb_out_ret_5, seq_itm_out.return_5), UVM_MEDIUM)
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		if ( sb_out_ret_10 == seq_itm_out.return_10)
-			`uvm_info("SCBD", $sformatf("PASS sb_ret_10 %d = seq_ret_10 %d  ", sb_out_ret_10, seq_itm_out.return_10), UVM_MEDIUM)
-		else
-			`uvm_info("SCBD", $sformatf("FAIL sb_ret_10 %d = seq_ret_10 %d  ", sb_out_ret_10, seq_itm_out.return_10), UVM_MEDIUM)
-
-		if ( sb_out_ret_25 == seq_itm_out.return_25)
-			`uvm_info("SCBD", $sformatf("PASS sb_ret_25 %d = seq_ret_25 %d  ", sb_out_ret_25, seq_itm_out.return_25), UVM_MEDIUM)
-		else
-			`uvm_info("SCBD", $sformatf("FAIL sb_ret_25 %d = seq_ret_25 %d  ", sb_out_ret_25, seq_itm_out.return_25), UVM_MEDIUM)
-
-	endfunction: my_compare
-	
-	function void connect_phase(uvm_phase phase);
-	
-    endfunction: connect_phase
-	
-    task run_phase(uvm_phase phase);    //run phase	
-		forever begin
+    task run_phase(uvm_phase phase); 	
+		
+        forever begin // :Forever
         @(posedge intf.clk)
+        
             wait(queue_in.size != 0 && queue_out.size != 0)
-            begin
-		    fork
-            begin
+            begin //: 1
+                
                 seq_itm_in = queue_in.pop_front();
 				seq_itm_out = queue_out.pop_front();
-				
-			    sb_detect_5 = 0;
-                sb_detect_10 = 0;
-                sb_detect_25 = 0;
-                sb_out_ret_5 = 1'b0;
-                sb_out_ret_10 = 1'b0;
-                sb_out_ret_25 = 1'b0;
-                sb_cnt = 1'b0;
-		        sb_ok = 1'b0;
+            
+            fork
+            begin // :fork 1
+                while(!(seq_itm_in.buy || seq_itm_in.return_coins))
+                begin // :2
+		            case(1)
+		                seq_itm_in.detect_5:  sb_detect_5  = sb_detect_5  + 1'b1;
+                        seq_itm_in.detect_10: sb_detect_10 = sb_detect_10 + 1'b1;	
+		                seq_itm_in.detect_25: sb_detect_25 = sb_detect_25 + 1'b1;	
+                    endcase
+                end // :2
                 
-                if(!(seq_itm_in.buy || seq_itm_in.return_coins))
-				begin
-		   	        //`uvm_info("SCBD", $sformatf("not detected buy yet"), UVM_MEDIUM)
-					detect_coins(seq_itm_in);
-                end
+		        sb_amount = ((sb_detect_5*5)+(sb_detect_10*10)+(sb_detect_25*25));
 
-				buy_or_return(seq_itm_in);
-		   	    //`uvm_info("SB_LIST", $sformatf("%d  %d  %d  %d, %d %d %d", seq_itm_out.return_5, seq_itm_out.return_10, seq_itm_out.return_25, seq_itm_out.ok, seq_itm_in.detect_5, seq_itm_in.detect_10, seq_itm_in.detect_25), UVM_MEDIUM)
-            end
-            begin
-                my_compare();
-            end
-          join
-            end
-		end
-	endtask : run_phase
+		        if(seq_itm_in.buy == 1 && !(seq_itm_out.return_5 || seq_itm_out.return_10 || seq_itm_out.return_25))
+		        begin // :3
+			        sb_ok = 1'b1;
+                    sb_cnt = sb_cnt + 1'b1; 
+			        sb_amount = ((sb_detect_5*5)+(sb_detect_10*10)+(sb_detect_25*25)) - seq_itm_in.amount ; 
+                
+                end // :3
 
-	virtual task buy_(my_sequence_item seq_itm_in);
+                else sb_ok = 1'b0;
 
-		sb_amount = ((sb_detect_5*5)+(sb_detect_10*10)+(sb_detect_25*25));
 
-		if(seq_itm_in.buy == 1 && !(sb_out_ret_25 || sb_out_ret_10 || sb_out_ret_5))
-		begin
-			sb_ok = 1'b1;
-			sb_amount = ((sb_detect_5*5)+(sb_detect_10*10)+(sb_detect_25*25)) - seq_itm_in.amount ; 
-		   	//`uvm_info("SCBD", $sformatf("buy = 1"), UVM_MEDIUM)
-        end
+                while(sb_amount != 0)
+		        begin // :4
+			        
+                    if(!seq_itm_in.empty_25 && sb_amount>=6'b011001)  //why !empty_25
+			        begin // :5                        
+				        sb_out_ret_25 = 1'b1; //make them zero in some state
+				        sb_amount = sb_amount - 6'b011001; 			
+			        end // :5
+			        
+                    else 
+			        begin // :6
+				        if(!seq_itm_in.empty_10 && sb_amount>=5'b01010) 
+				        begin // :7
+					        sb_out_ret_10 = 1'b1;
+					        sb_amount = sb_amount - 5'b01010;
+				        end // :7
+				        else 
+				        begin // :8
+					        if(!seq_itm_in.empty_5 && sb_amount>=3'b101) 
+					        begin // :9
+						        sb_out_ret_5 = 1'b1;
+						        sb_amount = sb_amount - 3'b101;
+					        end // :9
+					        else 
+					        begin // :10
+                                sb_out_ret_5 = 1'b0;
+                                sb_out_ret_10 = 1'b0;
+                                sb_out_ret_25 = 1'b0;
+						        sb_amount = 1'b0; //to exit the while loop
+					        end // :10
+				        end // :8
+                    end // :6
+		        end // :4
+              
+            end // :Fork1
 
-//        while(sb_cnt < 200 && sb_ok == 1'b1)
-//        begin
-//            @(posedge intf.clk)
-//            sb_cnt = sb_cnt + 1'b1;
-//		   	`uvm_info("while", $sformatf("................................................"), UVM_MEDIUM)
-//        end
-		
-        while(sb_amount != 0)
-		begin
-			if(!seq_itm.empty_25 && sb_amount>=6'b011001)  //why !empty_25
-			begin
-        sb_ok = 1'b0;
-				sb_out_ret_25 = 1'b1; //make them zero in some state
-				sb_amount = sb_amount - 6'b011001; 			
-			end
-			else 
-			begin
-				if(!seq_itm.empty_10 && sb_amount>=5'b01010) 
-				begin
-        sb_ok = 1'b0;
-					sb_out_ret_10 = 1'b1;
-					sb_amount = sb_amount - 5'b01010;
-				end
-				else 
-				begin
-					if(!seq_itm.empty_5 && sb_amount>=3'b101) 
-					begin
-        sb_ok = 1'b0;
-						sb_out_ret_5 = 1'b1;
-						sb_amount = sb_amount - 3'b101;
-					end
-					else 
-					begin
-                        sb_out_ret_5 = 1'b0;
-                        sb_out_ret_10 = 1'b0;
-                        sb_out_ret_25 = 1'b0;
-        sb_ok = 1'b0;
-						sb_amount = 1'b0; //to exit the while loop
-					end
-				end
-            end
-		end
+            begin // :Fork2
+		        if (sb_ok == seq_itm_out.ok)
+	    	        `uvm_info("SCBD", $sformatf("PASS sb_ok %d = seq_ok %d || buy = %d", sb_ok, seq_itm_out.ok, seq_itm_in.buy), UVM_MEDIUM)
+		        else	
+			        `uvm_info("SCBD", $sformatf("FAIL sb_ok %d = seq_ok %d || buy = %d", sb_ok, seq_itm_out.ok, seq_itm_in.buy), UVM_MEDIUM)
 
-	endtask : buy_
+		        if ( sb_out_ret_5 == seq_itm_out.return_5)
+		   	        `uvm_info("SCBD", $sformatf("PASS sb_ret_5 %d = seq_ret_5 %d", sb_out_ret_5, seq_itm_out.return_5), UVM_MEDIUM)
+		        else
+		   	        `uvm_info("SCBD", $sformatf("FAIL sb_ret_5 %d = seq_ret_5 %d", sb_out_ret_5, seq_itm_out.return_5), UVM_MEDIUM)
 
-	virtual task detect_coins(my_sequence_item seq_itm_in);
-		case(1)
+		        if ( sb_out_ret_10 == seq_itm_out.return_10)
+			        `uvm_info("SCBD", $sformatf("PASS sb_ret_10 %d = seq_ret_10 %d  ", sb_out_ret_10, seq_itm_out.return_10), UVM_MEDIUM)
+		        else
+			        `uvm_info("SCBD", $sformatf("FAIL sb_ret_10 %d = seq_ret_10 %d  ", sb_out_ret_10, seq_itm_out.return_10), UVM_MEDIUM)
 
-		seq_itm_in.detect_5:
-		begin
-		   	//`uvm_info("SCBD", $sformatf("detected 5"), UVM_MEDIUM)
-			sb_detect_5 = sb_detect_5 + 1'b1;
-		end
+		        if ( sb_out_ret_25 == seq_itm_out.return_25)
+			        `uvm_info("SCBD", $sformatf("PASS sb_ret_25 %d = seq_ret_25 %d  ", sb_out_ret_25, seq_itm_out.return_25), UVM_MEDIUM)
+		        else
+			        `uvm_info("SCBD", $sformatf("FAIL sb_ret_25 %d = seq_ret_25 %d  ", sb_out_ret_25, seq_itm_out.return_25), UVM_MEDIUM)
 
-		seq_itm_in.detect_10:
-		begin
-		   	//`uvm_info("SCBD", $sformatf("detected 10"), UVM_MEDIUM)
-			sb_detect_10 = sb_detect_10 + 1'b1;	
-		end
+	        end
+            join
 
-		seq_itm_in.detect_25:
-		begin
-		   	//`uvm_info("SCBD", $sformatf("detected 25"), UVM_MEDIUM)
-			sb_detect_25 = sb_detect_25 + 1'b1;	
-		end
-
-        endcase
-	endtask: detect_coins
-
+            
+            end  //: 1
+        end // :Forever
+    endtask : run_phase
+    
 endclass : my_scoreboard
