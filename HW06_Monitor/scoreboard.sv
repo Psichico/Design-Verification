@@ -6,24 +6,23 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 	
     uvm_analysis_imp_in #(my_sequence_item ,my_scoreboard) in_port; //test the diff betwn port and imp
 	uvm_analysis_imp_ref #(my_sequence_item ,my_scoreboard) out_port;
-	my_sequence_item seq_itm;
 
+    my_sequence_item seq_itm;
     my_sequence_item seq_itm_in;
 	my_sequence_item seq_itm_out;
 
     my_sequence_item queue_in [$];
 	my_sequence_item queue_out [$];
 
+	virtual vend_intf intf;
+    
     bit [7:0] expected_out;
     bit [7:0] actual_out;
-
-	virtual vend_intf intf;
-
 	reg [7:0] sb_detect_5, sb_detect_10, sb_detect_25;
 	reg sb_ok;
-
 	reg sb_out_ret_25, sb_out_ret_10, sb_out_ret_5;
     reg [31:0] sb_amount;
+    reg [19:0] sb_cnt;
 
 	function new(string name="my_scoreboard",uvm_component parent=null); //create constructor
 		super.new(name,parent);
@@ -50,7 +49,7 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
        queue_out.push_back(seq_itm);
   	endfunction: write_ref
 
-	virtual function void compare();
+	virtual function void my_compare();
 		if (sb_ok == seq_itm_out.ok)
 	    	`uvm_info("SCBD", $sformatf("PASS sb_ok %d = seq_ok %d || buy = %d", sb_ok, seq_itm_out.ok, seq_itm_in.buy), UVM_MEDIUM)
 		else	
@@ -71,27 +70,31 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 		else
 			`uvm_info("SCBD", $sformatf("FAIL sb_ret_25 %d = seq_ret_25 %d  ", sb_out_ret_25, seq_itm_out.return_25), UVM_MEDIUM)
 
-	endfunction: compare
+	endfunction: my_compare
 	
 	function void connect_phase(uvm_phase phase);
 	
     endfunction: connect_phase
 	
     task run_phase(uvm_phase phase);    //run phase	
-		forever begin		
+		forever begin
+        @(posedge intf.clk)
             wait(queue_in.size != 0 && queue_out.size != 0)
             begin
-		        seq_itm_in = queue_in.pop_front();
+		    fork
+            begin
+                seq_itm_in = queue_in.pop_front();
 				seq_itm_out = queue_out.pop_front();
-				//Write your code here
+				
 			    sb_detect_5 = 0;
                 sb_detect_10 = 0;
                 sb_detect_25 = 0;
                 sb_out_ret_5 = 1'b0;
                 sb_out_ret_10 = 1'b0;
                 sb_out_ret_25 = 1'b0;
-
+                sb_cnt = 1'b0;
 		        sb_ok = 1'b0;
+                
                 if(!(seq_itm_in.buy || seq_itm_in.return_coins))
 				begin
 		   	        //`uvm_info("SCBD", $sformatf("not detected buy yet"), UVM_MEDIUM)
@@ -100,30 +103,38 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 
 				buy_or_return(seq_itm_in);
 		   	    //`uvm_info("SB_LIST", $sformatf("%d  %d  %d  %d, %d %d %d", seq_itm_out.return_5, seq_itm_out.return_10, seq_itm_out.return_25, seq_itm_out.ok, seq_itm_in.detect_5, seq_itm_in.detect_10, seq_itm_in.detect_25), UVM_MEDIUM)
-				compare();
+            end
+            begin
+                my_compare();
+            end
+          join
             end
 		end
 	endtask : run_phase
 
-	virtual task buy_or_return(my_sequence_item seq_itm_in);
+	virtual task buy_(my_sequence_item seq_itm_in);
 
 		sb_amount = ((sb_detect_5*5)+(sb_detect_10*10)+(sb_detect_25*25));
 
-		if(seq_itm_in.buy == 1)
+		if(seq_itm_in.buy == 1 && !(sb_out_ret_25 || sb_out_ret_10 || sb_out_ret_5))
 		begin
 			sb_ok = 1'b1;
 			sb_amount = ((sb_detect_5*5)+(sb_detect_10*10)+(sb_detect_25*25)) - seq_itm_in.amount ; 
 		   	//`uvm_info("SCBD", $sformatf("buy = 1"), UVM_MEDIUM)
         end
-        else
-        begin
-            sb_ok = 1'b0;
-        end
 
-		while(sb_amount != 0)
+//        while(sb_cnt < 200 && sb_ok == 1'b1)
+//        begin
+//            @(posedge intf.clk)
+//            sb_cnt = sb_cnt + 1'b1;
+//		   	`uvm_info("while", $sformatf("................................................"), UVM_MEDIUM)
+//        end
+		
+        while(sb_amount != 0)
 		begin
 			if(!seq_itm.empty_25 && sb_amount>=6'b011001)  //why !empty_25
 			begin
+        sb_ok = 1'b0;
 				sb_out_ret_25 = 1'b1; //make them zero in some state
 				sb_amount = sb_amount - 6'b011001; 			
 			end
@@ -131,6 +142,7 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 			begin
 				if(!seq_itm.empty_10 && sb_amount>=5'b01010) 
 				begin
+        sb_ok = 1'b0;
 					sb_out_ret_10 = 1'b1;
 					sb_amount = sb_amount - 5'b01010;
 				end
@@ -138,6 +150,7 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 				begin
 					if(!seq_itm.empty_5 && sb_amount>=3'b101) 
 					begin
+        sb_ok = 1'b0;
 						sb_out_ret_5 = 1'b1;
 						sb_amount = sb_amount - 3'b101;
 					end
@@ -146,13 +159,14 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
                         sb_out_ret_5 = 1'b0;
                         sb_out_ret_10 = 1'b0;
                         sb_out_ret_25 = 1'b0;
+        sb_ok = 1'b0;
 						sb_amount = 1'b0; //to exit the while loop
 					end
 				end
             end
 		end
 
-	endtask : buy_or_return
+	endtask : buy_
 
 	virtual task detect_coins(my_sequence_item seq_itm_in);
 		case(1)

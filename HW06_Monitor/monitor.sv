@@ -29,9 +29,9 @@ class my_monitor extends uvm_monitor;
 			get_from_intf(seq_itm);
            @(posedge intf.clk);
             monitor_port.write(seq_itm);
-                @(posedge intf.clk);
-                seq_itm.buy = 0;
-                monitor_port.write(seq_itm);
+                //@(posedge intf.clk);
+                //seq_itm.buy = 0;
+                //monitor_port.write(seq_itm);
             //`uvm_info("MON", $sformatf("%d  %d  %d  %d", intf.return_5, intf.return_10, intf.return_25, intf.ok), UVM_MEDIUM)
 		end	
 	endtask
