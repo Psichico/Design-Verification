@@ -4,7 +4,7 @@
 import uvm_pkg::*;
 import hw06_monitor::*; 
 
-`include "./vend/vend.sv"
+//`include "./vend/vend.sv"
 `include "./vend/vend_intf.svh"
 
 module top();
