@@ -62,7 +62,19 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     task run_phase(uvm_phase phase); 	
-		
+	    forever begin
+          @(posedge intf.clk)
+            wait(queue_in.size != 0 && queue_out.size != 0)
+            begin //: 1
+                
+                seq_itm_in = queue_in.pop_front();
+				seq_itm_out = queue_out.pop_front();
+            
+	    	    `uvm_info("SCBD", $sformatf("PASS %d %d %d %d", seq_itm_in.detect_25, seq_itm_out.ok, seq_itm_in.buy, seq_itm_in.ok), UVM_MEDIUM)
+            end // :1 new
+        end
+
+    /*	
         forever begin // :Forever
         @(posedge intf.clk)
         
@@ -158,7 +170,7 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 
             
             end  //: 1
-        end // :Forever
+        end // :Forever */
     endtask : run_phase
     
 endclass : my_scoreboard
