@@ -24,8 +24,11 @@ class my_test extends uvm_test;
 	task run_phase(uvm_phase phase);
 		phase.raise_objection(this);
 	    seq = my_sequence::type_id::create("SEQUENCE",this);
-		seq.start(env.agnt.sqr);
-		//#50;
+	//	repeat(5)
+     // begin
+        seq.start(env.agnt.sqr);
+		#50;
+      //end
 		phase.drop_objection(this);
 	endtask
 

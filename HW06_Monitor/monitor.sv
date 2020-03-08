@@ -54,22 +54,22 @@ class my_monitor extends uvm_monitor;
                 end // :fork1
 
                 begin // :fork2
-                    if(intf.buy == 1 || intf.return_coins == 1)
+                    if((intf.buy == 1 || intf.return_coins == 1) && (mon_ok == 0))
                     begin // :4
+                        mon_ok = 1;
                         get_from_intf(seq_itm);
                         monitor_port.write(seq_itm);    
                     end // :4   
                 end // :fork2
 
                 begin // :fork3
-                    if(intf.buy == 1 )
+                    if(intf.buy == 0 && mon_ok == 1 )
                     begin // :5
-                        mon_ok = 1;
-                        while(mon_cnt <= 200)
-                            begin    
-                                mon_cnt = mon_cnt + 1'b1; 
-                            end
                         mon_ok = 0;
+                        //while(mon_cnt <= 200)
+                          //  begin    
+                            //    mon_cnt = mon_cnt + 1'b1; 
+                            //end
                     end // :5
                 end // :fork3
             join
