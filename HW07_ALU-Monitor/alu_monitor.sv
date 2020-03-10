@@ -21,17 +21,7 @@ class my_monitor_in extends uvm_monitor;
 	virtual task run_phase(uvm_phase phase);
 		super.run_phase(phase);
 		`uvm_info("MONITOR_IN","RUN PHASE", UVM_MEDIUM);
-/*		
-        forever begin    
-            @(posedge intf.clk);// or negedge intf.clk);
-		    pkt_itm = my_sequence_item::type_id::create("pkt_itm",this);
-			pkt_itm.ctl = intf.ctl;
-			pkt_itm.test_bit_a = intf.a;
-			pkt_itm.test_bit_b = intf.b;
-            //@(posedge intf.clk);
-            pkt_itm.z = intf.z;
-            monitor_port.write(pkt_itm);
-*/
+
         forever begin
             @(posedge intf.clk);
 		    seq_itm = my_sequence_item::type_id::create("seq_itm",this); //should I create this here??
