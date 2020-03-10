@@ -16,8 +16,9 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 
     bit [7:0] expected;
     bit [7:0] out;
+	bit [8:0] buff;
 
-	virtual my_interface intf;
+	virtual alu_if intf;
 
 	function new(string name="alu_scoreboard",uvm_component parent=null); //create constructor
 		super.new(name,parent);
@@ -31,7 +32,7 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 			seq_itm_sb_a = my_sequence_item::type_id::create("seq_itm_sb_a",this);
 			seq_itm_sb_b = my_sequence_item::type_id::create("seq_itm_sb_b",this);
 
-        if (!uvm_config_db#(virtual my_interface)::get(this, "*", "my_interface", intf))
+        if (!uvm_config_db#(virtual alu_if)::get(this, "*", "my_interface", intf))
 		begin
 			`uvm_fatal("SB", "Could not get intf")
 		end
@@ -49,11 +50,11 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 	virtual function void my_compare();
 		if (expected == out)
 		begin
-		`uvm_info("SCBD", $sformatf("PASS  a=%d, b= %d, out=%d exp=%d",seq_itm_sb_a.test_bit_a, seq_itm_sb_a.test_bit_b, out, expected), UVM_MEDIUM)
+			`uvm_info("SCBD", $sformatf("PASS  a=%d, b= %d, out=%d exp=%d",seq_itm_sb_a.test_bit_a, seq_itm_sb_a.test_bit_b, out, expected), UVM_MEDIUM)
 		end
 		else
 		begin 
-		`uvm_info("SCBD", $sformatf("FAIL  a=%d, b= %d, out=%d exp=%d",seq_itm_sb_a.test_bit_a, seq_itm_sb_a.test_bit_b, out, expected), UVM_MEDIUM)
+			`uvm_info("SCBD", $sformatf("FAIL  a=%d, b= %d, out=%d exp=%d",seq_itm_sb_a.test_bit_a, seq_itm_sb_a.test_bit_b, out, expected), UVM_MEDIUM)
 		end
 	endfunction: my_compare
 	
@@ -63,33 +64,21 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 		forever begin		
             wait(queue_a.size != 0 && queue_b.size != 0)
             begin
-		    seq_itm_sb_a = queue_a.pop_front();
-            seq_itm_sb_b = queue_b.pop_front();
-            out = seq_itm_sb_b.z;
+				seq_itm_sb_a = queue_a.pop_front();
+				seq_itm_sb_b = queue_b.pop_front();
+				out = seq_itm_sb_b.z;
 
-                if (seq_itm_sb_a.ctl == 2'b01) 
-		        begin
-			        expected = seq_itm_sb_a.test_bit_a + seq_itm_sb_a.test_bit_b + {8'b0 , seq_itm_sb_a.ci};
-		        end
+				case(seq_itm_sb_a.ctl)
 
-		        else if (seq_itm_sb_a.ctl == 2'b11)
-		        begin
-			        expected = seq_itm_sb_a.test_bit_a ^ seq_itm_sb_a.test_bit_b;
-		        end
+				0: buff = {1'b0 , seq_itm_sb_a.test_bit_a};
+				1: buff = seq_itm_sb_a.test_bit_a + seq_itm_sb_a.test_bit_b + {8'b0 , seq_itm_sb_a.ci};
+				2: buff = seq_itm_sb_a.test_bit_a - seq_itm_sb_a.test_bit_b + {8'b0 , seq_itm_sb_a.ci};
+				3: buff = seq_itm_sb_a.test_bit_a ^ seq_itm_sb_a.test_bit_b;
 
-                else if (seq_itm_sb_a.ctl == 2'b00)
-                begin
-			        expected = {1'b0 , seq_itm_sb_a.test_bit_a};
-                end
-		        else if (seq_itm_sb_a.ctl == 2'b10)
-		        begin
-			        expected = seq_itm_sb_a.test_bit_a - seq_itm_sb_a.test_bit_b + {8'b0 , seq_itm_sb_a.ci};
-		        end
-       	        else
-                    expected = expected;
-
-                my_compare();
-                //#5;
+				endcase
+				expected = buff [7:0];
+				my_compare();
+				
             end
             
 		end

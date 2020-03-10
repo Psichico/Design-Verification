@@ -5,12 +5,12 @@ class my_driver extends uvm_driver #(my_sequence_item);
 		super.new(name, parent);
 	endfunction
 
-	virtual my_interface intf;	
+	virtual alu_if intf;	
     my_sequence_item seq_itm; 
 	
 	function void build_phase(uvm_phase phase);
 		super.build_phase (phase);
-		if (!uvm_config_db#(virtual my_interface)::get(this, "", "my_interface", intf))
+		if (!uvm_config_db#(virtual alu_if)::get(this, "", "my_interface", intf))
 		begin	
 			`uvm_fatal("DRV", "Could not get intf") 
 		end
