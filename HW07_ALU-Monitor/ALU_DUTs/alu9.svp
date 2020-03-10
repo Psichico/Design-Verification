@@ -1,0 +1,59 @@
+//
+// This is a simple little ALU to demonstrate some things about UVM
+// It has some bugs added so the test can find something
+//
+// ctl
+// 00   a
+// 01   add
+// 10   sub
+// 11   xor (cout is zero).
+
+
+
+module alu(input clk, input rst, input pushin, output stopout, input [1:0] ctl, input [7:0] a, input [7:0] b,
+        input ci, output pushout, output cout, output [7:0] z, input stopin);
+        
+reg p1,p1_d,ci1,ci1_d,cout2;
+reg [7:0] a1,b1,z1,a1_d,b1_d;
+reg [1:0] ctl1,ctl1_d;
+
+logic recirculate;
+logic [8:0] res;
+
+assign z = res[7:0];
+assign cout = res[8];
+assign pushout = p1;
+assign stopout = p1 ==1 && stopin==1;
+
+`protected
+0.LM:MMM3(9,RPLLS89GH-\3f>M:Y_,4J1NYOW6)I-EZGPDg#/0M1)(V9+8gHJ<Z
+f/aQ>cQ#cZ]13b2RbA5Z/5,0bF_/V/_HF#&@AcX8^b0_&VgK?(+XDZ67f(C]dTbE
+0+4\Q)a\YBV^-CZg?Zb;b)MOJeC;UOKGSWV_G8E9)0ZGV_8.JWL3Ia[#=BeW9c=O
+JIU;3RWWUB9geLVKIQ<Y]MD/&?X.^X6VOJEe=J(7e-NC?a,LOOf[e)..#G&)Hed8
+-XU_+Z9G1bY#.-(8fQ(06DHa)(Y]U_<@XU-?a40LNRGQ(R9&bS_#c=<-OZYXIbbO
+21XgT_:Rc1cG,_d7CQ#eA)/GM<BU7>L6L@2VJ3]/?^W()+.R^1.ZFUc_,4>/1:C\
+ETV;+W=GJ&4Z&#JMP53GC7/DG5./Q(Ke:SfPR>gT&bc,EL[/P^SK.F>7Db=gdZ+>
+<cSGF?JfV.7OZ_Nb/F@X&D3,SRJ3e59eZ[Gb&OZ5ISKX]V_S)BVXAFF526&N2[:[
+#X@R9A)gE-K?]U./(fPTF\(111V6N;+>JTgc6SUH00E#9Q)5Q&U^-?K<]O@;cF;D
+;[:geWYgaK\\RJ>E./VI-TC9V>01CXBE]YLaY3^X\+RQe>@FP1TU->K<J$
+`endprotected
+ 
+
+always @(posedge(clk) or posedge(rst)) begin
+  if(rst) begin
+    p1 <= 0;
+    a1 <= 0;
+    b1 <= 0;
+    ci1 <= 0;
+    ctl1 <= 0;
+  end else begin
+    p1 <= #1 p1_d;
+    a1 <= #1 a1_d;
+    b1 <= #1 b1_d;
+    ci1 <= #1 ci1_d;
+    ctl1 <= #1 ctl1_d;
+  end
+end
+        
+        
+endmodule
