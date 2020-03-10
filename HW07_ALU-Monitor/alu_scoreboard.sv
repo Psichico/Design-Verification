@@ -44,7 +44,7 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
   	virtual function write_a(my_sequence_item seq_itm);
        queue_a.push_back(seq_itm);
   	endfunction
->>>>>>> pal_code
+
 
 	virtual function void my_compare();
 		if (expected == out)
@@ -69,7 +69,7 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 
                 if (seq_itm_sb_a.ctl == 2'b01) 
 		        begin
-			        expected = seq_itm_sb_a.test_bit_a + seq_itm_sb_a.test_bit_b;// + {8'b0,seq_itm_sb_a:};
+			        expected = seq_itm_sb_a.test_bit_a + seq_itm_sb_a.test_bit_b + {8'b0 , seq_itm_sb_a.ci};
 		        end
 
 		        else if (seq_itm_sb_a.ctl == 2'b11)
@@ -79,11 +79,11 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 
                 else if (seq_itm_sb_a.ctl == 2'b00)
                 begin
-			        expected = seq_itm_sb_a.test_bit_a;
+			        expected = {1'b0 , seq_itm_sb_a.test_bit_a};
                 end
 		        else if (seq_itm_sb_a.ctl == 2'b10)
 		        begin
-			        expected = seq_itm_sb_a.test_bit_a - seq_itm_sb_a.test_bit_b;
+			        expected = seq_itm_sb_a.test_bit_a - seq_itm_sb_a.test_bit_b + {8'b0 , seq_itm_sb_a.ci};
 		        end
        	        else
                     expected = expected;

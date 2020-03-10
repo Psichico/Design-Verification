@@ -22,9 +22,9 @@ class my_monitor_out extends uvm_monitor;
 		super.run_phase(phase);
 		`uvm_info("MONITOR_OUT","RUN PHASE", UVM_NONE);
 		
+		seq_itm = my_sequence_item::type_id::create("seq_itm",this);
         forever begin    
             @(posedge intf.clk);// or negedge intf.clk);
-		    seq_itm = my_sequence_item::type_id::create("seq_itm",this);
 			seq_itm.z = intf.z;
             seq_itm.pushout = intf.pushout;
 			//`uvm_info("MONITOR_OUT", $sformatf("z=%d",seq_itm.z), UVM_NONE)

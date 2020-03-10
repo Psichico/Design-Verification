@@ -9,9 +9,9 @@ class my_sequence extends uvm_sequence;
 	
 	task body();
 		`uvm_info("SEQUENCE","Body Task", UVM_MEDIUM);
-		repeat(100)
+		seq_itm = my_sequence_item::type_id::create("seq_itm"); 
+		repeat(10)
 		begin
-			seq_itm = my_sequence_item::type_id::create("seq_itm"); 
 			start_item(seq_itm);			
 			seq_itm.randomize();
             #10;
