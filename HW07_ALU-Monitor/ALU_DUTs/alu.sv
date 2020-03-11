@@ -45,7 +45,7 @@ always @(*) begin
      0: res = {1'b0,a1};
      1: res = a1+b1+{8'b0,ci1};
      2: res = a1-b1+{8'b0,ci1};
-     3: res = a1*b1;
+     3: res = a1^b1;
    endcase
 end
 

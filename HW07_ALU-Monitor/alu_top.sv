@@ -5,8 +5,8 @@ import uvm_pkg::*; //necessary to include this package in user's package
 `include "alu_sequence.sv"
 `include "alu_sequencer.sv"
 `include "alu_driver.sv"
-`include "alu_monitor.sv"
-`include "alu_monitor_2.sv"
+`include "alu_monitor_in.sv"
+`include "alu_monitor_out.sv"
 `include "alu_agent.sv"
 `include "alu_scoreboard.sv"
 `include "alu_environment.sv"
@@ -50,7 +50,7 @@ module top();
 		rst = 1;
 		#10;
 		rst = 0;
-		#5000		$finish;
+		#1000		$finish;
 	end
 	initial begin
 		$dumpfile("dump.vcd");

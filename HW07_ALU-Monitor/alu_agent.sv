@@ -6,11 +6,10 @@ class my_agent extends uvm_agent;
 	endfunction
 	
 	uvm_analysis_port #(my_sequence_item) agent_port;
-	//Instantiate driver, sequencer, monitor
+
 	my_driver drv_alu;
 	my_sequencer sqr0;
 	my_monitor_in mon_alu;
-//	uvm_sequencer #(my_sequence_item) sqr0; //default sequencer
 	
 	function void build_phase (uvm_phase phase);
 		drv_alu = my_driver::type_id::create("DRIVER",this);

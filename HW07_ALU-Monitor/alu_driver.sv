@@ -12,20 +12,19 @@ class my_driver extends uvm_driver #(my_sequence_item);
 		super.build_phase (phase);
 		if (!uvm_config_db#(virtual alu_if)::get(this, "", "alu_if", intf))
 		begin	
-			`uvm_fatal("DRV", "Could not get intf") 
+			`uvm_fatal("DRIVER", "Could not get virtual interface") 
 		end
 	endfunction
 
 	task run_phase (uvm_phase phase);
 		super.run_phase(phase);
 		`uvm_info("DRIVER","RUN PHASE", UVM_MEDIUM);
+		
 		forever begin
 	    @(posedge intf.clk);
-       	
-		//`uvm_info("DRIVER","FOREVER LOOP", UVM_MEDIUM);
             seq_item_port.get_next_item(seq_itm);
 			drive(seq_itm);
-            `uvm_info("DRIVER", $psprintf("IF A = %d , B = %d, ctl=%d, pi=%d, stpin=%d", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl, seq_itm.pushin, seq_itm.stopin), UVM_MEDIUM)	 	
+            //`uvm_info("DRIVER", $psprintf("IF A = %d , B = %d, ctl=%d, pi=%d, stpin=%d", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl, seq_itm.pushin, seq_itm.stopin), UVM_MEDIUM)	 	
             seq_item_port.item_done();
 		end
 	endtask
