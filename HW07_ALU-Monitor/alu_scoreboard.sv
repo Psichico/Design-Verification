@@ -50,11 +50,11 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 	virtual function void my_compare();
 		if (expected == out)
 		begin
-			`uvm_info("SCBD", $sformatf("PASS  a=%d, b= %d, out=%d exp=%d",seq_itm_sb_a.test_bit_a, seq_itm_sb_a.test_bit_b, out, expected), UVM_MEDIUM)
+			`uvm_info("SCBD", $sformatf("PASS  a=%d, b= %d, out=%d exp=%d ctl=%d",seq_itm_sb_a.test_bit_a, seq_itm_sb_a.test_bit_b, out, expected, seq_itm_sb_a.ctl), UVM_MEDIUM)
 		end
 		else
 		begin 
-			`uvm_info("SCBD", $sformatf("FAIL  a=%d, b= %d, out=%d exp=%d",seq_itm_sb_a.test_bit_a, seq_itm_sb_a.test_bit_b, out, expected), UVM_MEDIUM)
+			`uvm_info("SCBD", $sformatf("FAIL  a=%d, b= %d, out=%d exp=%d ctl=%d",seq_itm_sb_a.test_bit_a, seq_itm_sb_a.test_bit_b, out, expected, seq_itm_sb_a.ctl), UVM_MEDIUM)
 		end
 	endfunction: my_compare
 	
@@ -73,7 +73,7 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 				0: buff = {1'b0 , seq_itm_sb_a.test_bit_a};
 				1: buff = seq_itm_sb_a.test_bit_a + seq_itm_sb_a.test_bit_b + {8'b0 , seq_itm_sb_a.ci};
 				2: buff = seq_itm_sb_a.test_bit_a - seq_itm_sb_a.test_bit_b + {8'b0 , seq_itm_sb_a.ci};
-				3: buff = seq_itm_sb_a.test_bit_a ^ seq_itm_sb_a.test_bit_b;
+				3: buff = seq_itm_sb_a.test_bit_a * seq_itm_sb_a.test_bit_b;
 
 				endcase
 				expected = buff [7:0];

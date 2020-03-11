@@ -22,7 +22,7 @@ class my_driver extends uvm_driver #(my_sequence_item);
 		forever begin
 	    @(posedge intf.clk);
        	
-		`uvm_info("DRIVER","FOREVER LOOP", UVM_MEDIUM);
+		//`uvm_info("DRIVER","FOREVER LOOP", UVM_MEDIUM);
             seq_item_port.get_next_item(seq_itm);
 			drive(seq_itm);
             `uvm_info("DRIVER", $psprintf("IF A = %d , B = %d, ctl=%d, pi=%d, stpin=%d", seq_itm.test_bit_a, seq_itm.test_bit_b, seq_itm.ctl, seq_itm.pushin, seq_itm.stopin), UVM_MEDIUM)	 	
