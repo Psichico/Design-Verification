@@ -12,9 +12,8 @@ class my_test extends uvm_test;
 	virtual function void build_phase (uvm_phase phase);
 		super.build_phase (phase);
 		env_alu = my_environment::type_id::create("env_alu", this);
-		if (!uvm_config_db#(virtual alu_if)::get(this, "", "my_interface", intf))
+		if (!uvm_config_db#(virtual alu_if)::get(this, "", "alu_if", intf))
 			`uvm_fatal("TEST", "Could not get vif")
-		//uvm_config_db#(virtual alu_if)::set(this, "*", "my_interface", intf);
 
 	endfunction
 
@@ -25,6 +24,7 @@ class my_test extends uvm_test;
 	task run_phase(uvm_phase phase);
 		phase.raise_objection(this);
 	    seq_alu = my_sequence::type_id::create("seq_alu",this);
+
 		seq_alu.start(env_alu.agnt_alu.sqr0);
 		#500;
 		phase.drop_objection(this);

@@ -32,7 +32,7 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 			seq_itm_sb_a = my_sequence_item::type_id::create("seq_itm_sb_a",this);
 			seq_itm_sb_b = my_sequence_item::type_id::create("seq_itm_sb_b",this);
 
-        if (!uvm_config_db#(virtual alu_if)::get(this, "*", "my_interface", intf))
+        if (!uvm_config_db#(virtual alu_if)::get(this, "*", "alu_if", intf))
 		begin
 			`uvm_fatal("SB", "Could not get intf")
 		end
