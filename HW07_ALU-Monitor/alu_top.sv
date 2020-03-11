@@ -29,9 +29,9 @@ module top();
 	reg clk;
 	reg rst;
 	
-	alu_if intf(clk , rst);
+	alu_if intf();
 	
-	alu dut(.clk(intf.clk), .rst(intf.rst), .pushin(intf.pushin), .stopout(intf.stopout), .ctl(intf.ctl), .a(intf.a), 
+	alu dut(.clk(clk), .rst(rst), .pushin(intf.pushin), .stopout(intf.stopout), .ctl(intf.ctl), .a(intf.a), 
 			.b(intf.b), .ci(intf.ci), .pushout(intf.pushout), .cout(intf.cout), .z(intf.z), .stopin(intf.stopin));
 	
 	initial begin	
@@ -40,7 +40,7 @@ module top();
 	end
 	
 	initial begin
-		repeat(500)
+		repeat(1000)
 		begin
 			#1 clk = 0;
 			#1 clk = 1;
@@ -53,11 +53,11 @@ module top();
 		rst = 1;
 		#10;
 		rst = 0;
-		#500		$finish;
+		#5000		$finish;
 	end
 	initial begin
-		//$dumpfile("dump.vcd");
-		//$dumpvars();
+		$dumpfile("dump.vcd");
+		$dumpvars();
 	end
 endmodule
 

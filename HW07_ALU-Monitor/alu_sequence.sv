@@ -14,6 +14,7 @@ class my_sequence extends uvm_sequence;
 		begin
 			start_item(seq_itm);			
 			seq_itm.randomize();
+		    `uvm_info("SEQUENCE","Repeat Task", UVM_MEDIUM);
             #10;
 			finish_item(seq_itm);
 		end

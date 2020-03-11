@@ -1,26 +1,19 @@
 
-interface alu_if;
+interface alu_if(input logic clk, input logic rst); //not a good practice, but lets see what happens
 
-logic clk;
-logic rst;
-logic [7:0] a,b;
+logic pushin,ci; //inputs here
+logic stopout; //output
+
+logic [1:0] ctl; 
+logic [7:0] a;
+logic [7:0] b;
+
 logic ci;
-logic pushin;
-logic stopout;
-logic [7:0] z;
-logic cout;
-logic pushout;
+logic pushout; //output
+logic cout; //output
+logic [7:0] z; //output
 logic stopin;
-logic [1:0] ctl;
-  
-  clocking clkb @(posedge clk);
-    inout a,b,ci,clk;
-    inout z,cout;
-  endclocking
-  
-  modport mon_mp (clocking clkb);
-  
-  modport dut_mp (input clk, input rst, input pushin, output stopout, input a, input b, input ci, output z, output cout,output pushout, input stopin,input ctl);
 
-endinterface: alu_if
 
+
+endinterface : alu_if
