@@ -42,7 +42,7 @@ class my_driver extends uvm_driver #(my_sequence_item);
             #2000;
             //intf.buy = 0;
             //drive_retcoins(seq_itm);
-            //drive_reset(seq_itm);
+            drive_reset(seq_itm);
             #39000;
             seq_item_port.item_done();
 		end

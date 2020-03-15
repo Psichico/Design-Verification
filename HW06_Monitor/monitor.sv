@@ -63,9 +63,9 @@ class my_monitor extends uvm_monitor;
                 end // :fork2
 
                 begin // :fork3
-                    if(intf.buy == 0 && mon_ok == 1 )
+                    if(intf.buy == 0 && mon_ok == 1 && intf.return_coins == 0)
                     begin // :5
-                        mon_ok = 0;
+                        //mon_ok = 0;
                         //while(mon_cnt <= 200)
                           //  begin    
                             //    mon_cnt = mon_cnt + 1'b1; 

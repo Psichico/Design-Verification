@@ -70,19 +70,20 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
     task return_coins(my_sequence_item seq_itm); 	
         sb_amount = ((seq_itm_in.detect_5 * 5) + (seq_itm_in.detect_10 * 10)+ (seq_itm_in.detect_25 * 25));
 
-        if(sb_amount>1'b0) begin // :1
+        while(sb_amount>1'b0) begin // :1
             if(!seq_itm_in.empty_25 && sb_amount>=6'b011001) begin // :2
-                sb_return_25 = 1'b1;
+                //wait(negedge)
+                sb_return_25 = sb_return_25 + 1'b1;
                 sb_amount = sb_amount - 6'b011001;
             end // :2
             else begin // :3
                 if(!seq_itm_in.empty_10 && sb_amount>=5'b01010) begin // :4
-                    sb_return_10 = 1'b1;
+                    sb_return_10 = sb_return_10 + 1'b1;
                     sb_amount = sb_amount - 5'b01010;
                 end // :4
                 else begin // :5
                     if(!seq_itm_in.empty_5 && sb_amount>=3'b101) begin // :6
-                        sb_return_5 = 1'b1;
+                        sb_return_5 = sb_return_5 + 1'b1;
                         sb_amount = sb_amount - 3'b101;
                     end // :6
                     else begin // :7

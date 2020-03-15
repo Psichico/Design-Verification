@@ -9,7 +9,7 @@ class my_sequence extends uvm_sequence;
 	
 	virtual task body();
       `uvm_info("SEQUENCE","TASK", UVM_MEDIUM);
-		repeat(3)
+		repeat(1)
 		begin
 			seq_itm = my_sequence_item::type_id::create("seq_itm"); //inside the repeat loop or not?? 
 		   $display("BUYING A PRODUCT NOW");
