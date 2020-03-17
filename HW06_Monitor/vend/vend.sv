@@ -104,7 +104,7 @@ module vend(input reg clk,input reg reset,input detect_5
                 if(acc>=amount) begin
                     _out_ok = 1'b1;
                     cnt_d = cnt+1'b1;
-                    if(cnt>$urandom_range(9'b001100100,10'b0011001000)) begin
+                    if(cnt>$urandom_range(9'b001100100,10'b0011001000)) begin //200
                         acc_d = acc-amount;
                         sm_state_var_d=6; // goto Sreturn_em
                     end
@@ -116,7 +116,7 @@ module vend(input reg clk,input reg reset,input detect_5
             6 : begin // state Sreturn_em
                 cnt_d = 1'b0;
                 if(acc>1'b0) begin
-                    if(!empty_25&&acc>=6'b011001) begin
+                    if(!empty_25&&acc>=6'b011001) begin 
                         ret_25_d = 1'b1;
                         acc_d = acc-6'b011001;
                         sm_state_var_d=7; // calls Sret_pulse
@@ -150,7 +150,7 @@ module vend(input reg clk,input reg reset,input detect_5
                 end
             end
             7 : begin // state Sret_pulse
-                if(cnt>$urandom_range(13'b0001111101000,14'b00011111010000)) begin
+                if(cnt>$urandom_range(13'b0001111101000,14'b00011111010000)) begin //2000
                     ret_5_d = 1'b0;
                     ret_10_d = 1'b0;
                     ret_25_d = 1'b0;
@@ -162,7 +162,7 @@ module vend(input reg clk,input reg reset,input detect_5
                 end
             end
             8 : begin // state Srec_pulse
-                if(cnt>$urandom_range(13'b0001111101000,17'b00010011100010000)) begin
+                if(cnt>$urandom_range(13'b0001111101000,17'b00010011100010000)) begin //10000
                     sm_state_var_d=sm_return_var; // return
                     cnt_d = 1'b0;
                 end

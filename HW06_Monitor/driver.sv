@@ -8,9 +8,8 @@ class my_driver extends uvm_driver #(my_sequence_item);
 	// Instantiate interface, sequence item. 
 	virtual vend_intf intf;	
     my_sequence_item seq_itm;
-
 	
-	function void build_phase(uvm_phase phase);
+    function void build_phase(uvm_phase phase);
 		super.build_phase (phase);
 		// VOID: uvm_config_db#(type T = int)::set(uvm_component cntxt, string inst_name, string field_name, T value);
 		// BIT:  uvm_config_db#(type T = int)::get(uvm_component cntxt, string inst_name, string field_name, ref T value);
@@ -23,65 +22,43 @@ class my_driver extends uvm_driver #(my_sequence_item);
 	task run_phase (uvm_phase phase);
 		super.run_phase(phase);
 		`uvm_info("DRIVER","RUN PHASE", UVM_MEDIUM);
-		forever begin
+	    //every signal must be driven atleast for #10.
+        // Design bug: You cannot add 2 before buying.
+        forever begin
 	    @(posedge intf.clk);	
-            seq_item_port.get_next_item(seq_itm);
-            //seq_itm.display();
-            seq_itm.amount = 8'd0;
-            #20;
-			drive_amount(seq_itm);
-            drive_detect(seq_itm);
-            #30;
-            //intf.detect_25 = 1;
-            //#20;
-            //intf.detect_25 = 0;
-            //#10;
-            //intf.return_coins = 1;//seq_itm.return_coins;
             
-            drive_empty(seq_itm);
-            drive_buy(seq_itm);
-            #2000;
-            //intf.buy = 0;
-            //drive_retcoins(seq_itm);
-            drive_reset(seq_itm);
-            #39000;
+            seq_item_port.get_next_item(seq_itm);
+                
+            #20     drive_reset(seq_itm);
+            #20     intf.amount     = 8'd0; //driving amount 
+            #20     intf.detect_5   = 1; // entering 50 = 25*2;
+            #20     intf.detect_5   = 0;
+            #300    intf.detect_25  = 1; // entering 50 = 25*2;
+            #20     intf.detect_25  = 0;
+            #300    intf.detect_10  = 1;
+            #20     intf.detect_10  = 0;
+            #20     intf.empty_25   = 0; //change to 1: experiment
+                    intf.empty_10   = 0;
+            #20     intf.buy        = 1;
+            #2020   intf.buy        = 0;
+            
+            #380000;
+            
             seq_item_port.item_done();
+
 		end
 	endtask : run_phase
 
-        virtual task drive_amount(my_sequence_item seq_itm);
-            intf.amount = seq_itm.amount;
-        endtask: drive_amount
         
         virtual task drive_reset(my_sequence_item seq_itm);
-            intf.detect_5 = 0;//seq_itm.detect_5;
-            intf.detect_10 = 0;//seq_itm.detect_10;
-            intf.detect_25 = 0;//seq_itm.detect_25;
-            intf.buy = 0;//seq_itm.buy;
-            //intf.empty_5 = 0;//seq_itm.empty_5;
-            //intf.empty_10 = 0;//seq_itm.empty_10;
-            //intf.empty_25 = 0;//seq_itm.empty_25;
-            //intf.return_coins = 0;//seq_itm.return_coins;
+            intf.detect_5 = 0;
+            intf.detect_10 = 0;
+            intf.detect_25 = 0;
+            intf.buy = 0;
+            intf.empty_5 = 0;
+            intf.empty_10 = 0;
+            intf.empty_25 = 0;
+            intf.return_coins = 0;
         endtask: drive_reset
-
-        virtual task drive_detect(my_sequence_item seq_itm);
-            intf.detect_5 = seq_itm.detect_5;
-            intf.detect_10 = seq_itm.detect_10;
-            intf.detect_25 = seq_itm.detect_25;
-        endtask : drive_detect
-
-        virtual task drive_buy(my_sequence_item seq_itm);
-            intf.buy = seq_itm.buy;
-        endtask : drive_buy
-            
-        virtual task drive_empty(my_sequence_item seq_itm);
-            intf.empty_5 = 0;//seq_itm.empty_5;
-            intf.empty_10 = 0;//seq_itm.empty_10;
-            intf.empty_25 = 0;//seq_itm.empty_25;
-        endtask : drive_empty
-        
-        virtual task drive_retcoins(my_sequence_item seq_itm);
-            intf.return_coins = seq_itm.return_coins;
-        endtask : drive_retcoins
 
 endclass : my_driver
