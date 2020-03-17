@@ -1,8 +1,6 @@
 class my_sequence_item extends uvm_sequence_item;  
 //   `uvm_object_utils(my_sequence_item)
 	    
-    //constraint my_constraints { }
-    
     rand reg detect_5;
     rand reg detect_10;
     rand reg detect_25;
@@ -17,21 +15,6 @@ class my_sequence_item extends uvm_sequence_item;
     reg return_10;
     reg return_25;
 
-/*
-    reg _out_ok;
-    reg _out_return_5;
-    reg _out_return_10;
-    reg _out_return_25;
-    reg [8:0] acc,acc_d;
-    reg [19:0] cnt,cnt_d;
-    reg ret_5,ret_5_d;
-    reg ret_10,ret_10_d;
-    reg ret_25,ret_25_d;
-    reg [3:0] sm_state_var,sm_state_var_d;
-    reg [3:0] sm_return_var,sm_return_var_d;
-
-    int i;
-*/
 	function new(string name = "my_sequence_item");
 		super.new(name);
 	endfunction

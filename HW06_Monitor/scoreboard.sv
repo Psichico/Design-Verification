@@ -48,8 +48,6 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
        queue_out.push_back(seq_itm);
   	endfunction: write_ref
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     task run_phase(uvm_phase phase); 	
@@ -62,6 +60,10 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 				seq_itm_out = queue_out.pop_front();
                 return_coins(seq_itm);
                 my_compare(seq_itm);
+                sb_return_5 = 0;
+                sb_return_10 = 0;
+                sb_return_25 = 0;
+                
 
             end // :1 new
         end
@@ -99,22 +101,22 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
                 if (seq_itm_in.ok == seq_itm_out.ok)
 	    	        `uvm_info("SCBD", $sformatf("PASS in ok %d , out ok %d", seq_itm_in.ok, seq_itm_out.ok), UVM_MEDIUM)
                 else
-	    	        `uvm_info("SCBD", $sformatf("FAIL in ok %d , out ok %d", seq_itm_in.ok, seq_itm_out.ok), UVM_MEDIUM)
+	    	        `uvm_error("SCBD", "Ok Failed")
 
                 if (sb_return_5 == seq_itm_out.return_5)
 	    	        `uvm_info("SCBD", $sformatf("PASS in ret5 %d , out ret5 %d", sb_return_5, seq_itm_out.return_5), UVM_MEDIUM)
                 else
-	    	        `uvm_info("SCBD", $sformatf("FAIL in ret5 %d , out ret5 %d", sb_return_5, seq_itm_out.return_5), UVM_MEDIUM)
+	    	        `uvm_error("SCBD", "Ret5 failed")
 
                 if (sb_return_10 == seq_itm_out.return_10)
 	    	        `uvm_info("SCBD", $sformatf("PASS in ret10 %d , out ret10 %d", sb_return_10, seq_itm_out.return_10), UVM_MEDIUM)
                 else
-	    	        `uvm_info("SCBD", $sformatf("FAIL in ret10 %d , out ret10 %d", sb_return_10, seq_itm_out.return_10), UVM_MEDIUM)
+	    	        `uvm_error("SCBD", "Ret10 failed")
 
                 if (sb_return_25 == seq_itm_out.return_25)
 	    	        `uvm_info("SCBD", $sformatf("PASS in ret25 %d , out ret25 %d", sb_return_25, seq_itm_out.return_25), UVM_MEDIUM)
                 else
-	    	        `uvm_info("SCBD", $sformatf("FAIL in ret25 %d , out ret25 %d", sb_return_25, seq_itm_out.return_25), UVM_MEDIUM)
+	    	        `uvm_error("SCBD", "Ret25 failed")
     endtask : my_compare
 
 endclass : my_scoreboard

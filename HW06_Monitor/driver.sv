@@ -32,12 +32,13 @@ class my_driver extends uvm_driver #(my_sequence_item);
 			drive_amount(seq_itm);
             drive_detect(seq_itm);
             #30;
-            drive_detect(seq_itm);
-            #30;
-            drive_detect(seq_itm);
-            #30;
+            //intf.detect_25 = 1;
+            //#20;
+            //intf.detect_25 = 0;
+            //#10;
+            //intf.return_coins = 1;//seq_itm.return_coins;
+            
             drive_empty(seq_itm);
-            //intf.buy = 1;
             drive_buy(seq_itm);
             #2000;
             //intf.buy = 0;
@@ -57,10 +58,10 @@ class my_driver extends uvm_driver #(my_sequence_item);
             intf.detect_10 = 0;//seq_itm.detect_10;
             intf.detect_25 = 0;//seq_itm.detect_25;
             intf.buy = 0;//seq_itm.buy;
-            intf.empty_5 = 0;//seq_itm.empty_5;
-            intf.empty_10 = 0;//seq_itm.empty_10;
-            intf.empty_25 = 0;//seq_itm.empty_25;
-            intf.return_coins = 0;//seq_itm.return_coins;
+            //intf.empty_5 = 0;//seq_itm.empty_5;
+            //intf.empty_10 = 0;//seq_itm.empty_10;
+            //intf.empty_25 = 0;//seq_itm.empty_25;
+            //intf.return_coins = 0;//seq_itm.return_coins;
         endtask: drive_reset
 
         virtual task drive_detect(my_sequence_item seq_itm);
@@ -74,9 +75,9 @@ class my_driver extends uvm_driver #(my_sequence_item);
         endtask : drive_buy
             
         virtual task drive_empty(my_sequence_item seq_itm);
-            intf.empty_5 = seq_itm.empty_5;
-            intf.empty_10 = seq_itm.empty_10;
-            intf.empty_25 = seq_itm.empty_25;
+            intf.empty_5 = 0;//seq_itm.empty_5;
+            intf.empty_10 = 0;//seq_itm.empty_10;
+            intf.empty_25 = 0;//seq_itm.empty_25;
         endtask : drive_empty
         
         virtual task drive_retcoins(my_sequence_item seq_itm);
