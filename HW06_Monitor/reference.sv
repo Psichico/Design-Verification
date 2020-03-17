@@ -42,12 +42,10 @@ class ref_model extends uvm_monitor;
                 begin
                 @(negedge intf.ok)
                     ok_true =  1'b1;
-                end
-                
+                end                
             end // :Fork1
 
             begin // :Fork2
-                
                 if(intf.return_5 == 1)
                 begin
                 @(negedge intf.return_5)
@@ -77,7 +75,7 @@ class ref_model extends uvm_monitor;
                     begin
                         get_from_intf(seq_itm);
                         ref_port.write(seq_itm);
-                        `uvm_info("CNT", $sformatf("ok=%d, ret5=%d, ret10=%d, ret25=%d, cnt=%d", ok_true, ret5_true, ret10_true, ret25_true, cnt), UVM_MEDIUM);
+                        //`uvm_info("CNT", $sformatf("ok=%d, ret5=%d, ret10=%d, ret25=%d, cnt=%d", ok_true, ret5_true, ret10_true, ret25_true, cnt), UVM_MEDIUM);
                         flag = 1'b0;
                         ok_true = 1'b0;
 						ret5_true = 16'h0000;
