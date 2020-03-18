@@ -126,6 +126,7 @@ class ref_model extends uvm_monitor;
                     amount_to_return = 32'd0;
                     amount_buffer    = 32'd0;
                     in_amount        = 32'd0;
+                    returned_amount  = 32'd0;
                 end
 
                 if(returned_amount > in_amount) //DUT 1

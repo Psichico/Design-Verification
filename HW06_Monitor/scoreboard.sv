@@ -51,13 +51,13 @@ class my_scoreboard extends uvm_scoreboard; //Create a scoreboard
 	    forever begin
           @(posedge intf.clk)
             
-            error_flag = queue_in.size() - queue_out.size();
-            if(error_flag >= 2)
-            begin
-                `uvm_error("SCB","Didn't return my money");
-            end
+            //error_flag = queue_in.size() - queue_out.size();
+            //if(error_flag >= 2)
+            //begin
+                //`uvm_error("SCB","Didn't return my money");
+            //end
             
-            `uvm_info("SCBD",$sformatf("%d  %d",queue_in.size(), queue_out.size()), UVM_MEDIUM);
+            //`uvm_info("SCBD",$sformatf("%d  %d",queue_in.size(), queue_out.size()), UVM_MEDIUM);
             
             wait(queue_in.size != 0 && queue_out.size != 0)
             begin //: 1
