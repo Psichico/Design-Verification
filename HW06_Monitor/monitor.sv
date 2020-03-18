@@ -41,13 +41,13 @@ class my_monitor extends uvm_monitor;
 	virtual task run_phase(uvm_phase phase);
 		super.run_phase(phase);
 		`uvm_info("MONITOR","RUN PHASE", UVM_MEDIUM);
-		
-        seq_itm = my_sequence_item::type_id::create("seq_itm",this); //should I create this here??           
+        seq_itm = my_sequence_item::type_id::create("seq_itm",this);
         
         forever begin // :Forever
         @(posedge intf.clk);
 		    
             fork
+            ////////////////////////////////////////////////////
                 begin // :fork1
                 if (intf.detect_5 == 1)
                     begin // :1
@@ -66,13 +66,14 @@ class my_monitor extends uvm_monitor;
                     end // :3
                 end // :fork1
                 
+            ////////////////////////////////////////////////////
                 begin // :buy / return coins
 
                 if (intf.buy == 1)
                     begin
                         @(negedge intf.buy)
                         mon_ok = 1;
-                `uvm_info("MONITOR_IN", $sformatf("%d", mon_ok), UVM_NONE)
+                //`uvm_info("MONITOR_IN", $sformatf("%d", mon_ok), UVM_NONE)
                     end
                 else if (intf.return_coins == 1)
                     begin
@@ -83,6 +84,7 @@ class my_monitor extends uvm_monitor;
                 end // :buy / return coins
                 
               
+            ////////////////////////////////////////////////////
                 begin // :fork new
 
                 if(mon_ok == 1 || mon_retcoins == 1)
@@ -99,7 +101,7 @@ class my_monitor extends uvm_monitor;
                     mon_amount = mon_amount - buy_amount;
 
                     while(mon_amount>1'b0) begin // :1
-                        `uvm_info("MONITOR_IN", $sformatf("IN WHILE LOOP %d", mon_amount), UVM_NONE)
+                        //`uvm_info("MONITOR_IN", $sformatf("IN WHILE LOOP %d", mon_amount), UVM_NONE)
                         if(!seq_itm.empty_25 && mon_amount>=6'b011001) begin // :2
                             mon_return_25 = mon_return_25 + 1'b1;
                             mon_amount = mon_amount - 6'b011001;
@@ -133,6 +135,9 @@ class my_monitor extends uvm_monitor;
                         c25 = 0;
                         out_flag = 0;
                         mon_ok = 0;
+                        mon_return_5 = 0;
+                        mon_return_10 = 0;
+                        mon_return_25 = 0;
                         mon_retcoins = 0;
                 end // :if
                 end // :fork3

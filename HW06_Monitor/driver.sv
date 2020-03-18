@@ -43,6 +43,7 @@ class my_driver extends uvm_driver #(my_sequence_item);
             #2020   intf.buy        = 0;
             
             #380000;
+            #380000;
             
             seq_item_port.item_done();
 

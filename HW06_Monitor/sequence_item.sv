@@ -11,9 +11,9 @@ class my_sequence_item extends uvm_sequence_item;
     rand reg empty_10;
     rand reg empty_25;
     reg ok;
-    reg return_5;
-    reg return_10;
-    reg return_25;
+    reg [23:0] return_5;
+    reg [23:0] return_10;
+    reg [23:0] return_25;
 
 	function new(string name = "my_sequence_item");
 		super.new(name);
