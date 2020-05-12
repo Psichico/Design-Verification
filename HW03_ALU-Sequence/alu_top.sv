@@ -18,7 +18,7 @@ import ALU_sequence::*;
 
 module top();
 	initial begin
-		run_test("my_test");
+		run_test();
 	end
 endmodule
 
