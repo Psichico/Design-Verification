@@ -1,3 +1,0 @@
-  CREATE_STREAM @0 {NAME:seq_alu T:Transactions SCOPE:uvm_test_top.env_alu.agnt_alu.SEQUENCER STREAM:551}
-  CREATE_STREAM @0 {NAME:seq_alu T:Transactions SCOPE:uvm_test_top.env_alu.agnt_alu.SEQUENCER STREAM:551}
-  CREATE_STREAM @0 {NAME:seq_alu T:Transactions SCOPE:uvm_test_top.env_alu.agnt_alu.SEQUENCER STREAM:551}
