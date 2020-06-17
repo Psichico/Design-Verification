@@ -31,8 +31,29 @@ itm mx;
      mx=itm::type_id::create("seq_item");
      doreset(3);
      donop(3);
+
 // Put your stuff here...
-    
-//
+
+	repeat(3)
+	begin
+		mx.opcode=E_push;
+		`uvm_rand_send(mx)
+		mx.opcode=E_reset;
+		`uvm_rand_send(mx)
+		mx.opcode=E_pushcomplete;
+		`uvm_rand_send(mx)
+
+	end
+
+	repeat(3)
+	begin
+		mx.opcode=E_push;
+		`uvm_rand_send(mx)
+		mx.opcode=E_pushcomplete;
+		`uvm_rand_send(mx)
+
+	end
+
    endtask : body
 endclass : s0
+
